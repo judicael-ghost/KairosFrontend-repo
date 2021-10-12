@@ -1,0 +1,87 @@
+
+          <app-header></app-header>
+          <div class="row">
+            <div class="col-2">
+              <app-stock-menu></app-stock-menu>
+            </div>
+            <div class="col-10">
+          <div class="container-fluid">
+            <div class="element">
+          <div class="col-md-12" *ngIf="currentMarcher.id">
+            <!-- jquery validation -->
+            <div class="card card-primary">
+              <!-- form start -->
+              <form id="quickForm">
+                <div class="card-body">
+                 <div class="form-group">
+                   <label for="ingredient">Ingredient</label>
+                      <select id="ingredient" class="form-control color-gray" [(ngModel)]="currentMarcher.ingredient.id" name='ingredient'>
+                      <option *ngFor='let ingredientss of ingredients' [ngValue]="ingredientss.id" >{{ ingredientss.nom_ingredient }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="lieu">Lieu</label>
+                    <select id="lieu" class="form-control color-gray" [(ngModel)]="currentMarcher.lieu.id" name='lieu'>
+                      <option *ngFor='let lieuxx of lieux' [ngValue]="lieuxx.id" >{{ lieuxx.nom_lieu }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="prix">Prix unititaire</label>
+                      <select id="prix" class="form-control color-gray" [(ngModel)]="currentMarcher.prix.id" name='prix'>
+                      <option *ngFor='let prixx of prix' [ngValue]="prixx.id" >{{ prixx.prix_unitaire }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button class="btn btn-danger"  (click)="deleteMarcher()">Supprimer</button>
+                    &nbsp;&nbsp;
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    (click)="updateMarcher()"
+                  >
+                    Modifier
+                  </button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+          <!--/.col (left) -->
+          <div *ngIf="message" class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                  {{ message }}
+          </div>
+          <div *ngIf="!currentMarcher.id">
+            <br />
+            <p>Cannot access this Tsena...</p>
+          </div>
+
+  <!-- Modal delete-->
+  <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Supprimer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p class="text-xl-center">Vous êtes sûre de vouloire supprimer le Tsena de <mark>{{ currentMarcher.ingredient.nom_ingredient }} suitué  {{ currentMarcher.lieu.nom_lieu }}</mark> ? </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-outline-danger"  data-bs-dismiss="modal" aria-label="Close">Supprimer</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+            </div>
+          </div>
+          </div>
+

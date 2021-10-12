@@ -1,0 +1,54 @@
+<app-header></app-header>
+<div class="container-fluid bodi-client">
+  <div class="row element col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ligne">
+    <div class="col-12">
+      <div class="row col-12">
+        <div class="col-3">
+          <div class="form-group">
+            <div class="input-group input-sm">
+              <div class="input-group-append">
+                <button class="btn btn-sm" disable type="button">RECHERCHE :</button>
+              </div>
+              <input id="recherche" [formControl]="filter" class="form-control form-control-sm" placeholder="Tapez quelque chose" name="recherche">
+            </div>
+          </div>
+        </div>
+        <div class="col-9 ">
+          <div class="float-right">
+            <select class="form-control form-control-sm" [(ngModel)]="nbItem"  (pageChange)="page = $event">
+              <option value="2">2 par page</option>
+              <option value="5">5 par page</option>
+              <option value="10">10 par page</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" *ngFor="let item of facture$ | async | paginate : {itemsPerPage : nbItem, currentPage : page, totalItems : totalLength};index as i">
+      <ngb-accordion #acc="ngbAccordion">
+        <ngb-panel id="to-1">
+          <ng-template ngbPanelTitle>
+            <div class="d-flex align-items-center justify-content-between">
+              <h2 class="m-0"><b>Numero : </b>{{item.id}}, <b>Date : </b>{{item.dateFacture}}, <b>Heure : </b>{{item.heureFatcure}}, <b>Total : </b>{{item.total | number : '0.0-2' : 'fr'}} Ar, <b>Billet : </b>{{item.billet | number : '0.0-2' : 'fr'}} Ar, <b>Rendu : </b>{{item.rendu | number : '0.0-2' : 'fr'}} Ar</h2>
+              <div>
+                <button type="button" class="btn btn-sm btn-outline-success ml-2">IMPRIMER</button>
+                <button type="button" class="btn btn-sm btn-outline-danger ml-2">SUPPRIMER</button>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <ul class="list-group list-group-flush" *ngFor="let com of factureCommande[item.id]">
+              <li class="list-group-item"><h3><b>{{ i+1 }} : </b> {{com.categorie}} {{com.nom}} {{com.prix | number : '0.0-2' : 'fr'}} Ar * {{com.quantite}} = {{com.net | number : '0.0-2' : 'fr'}} Ar</h3></li>
+            </ul>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+      </div>
+      <div style="text-align: center;" *ngIf="searchResult == false">
+        Aucun élément
+      </div>
+        <div class="text-center">
+          <pagination-controls class="text-center my-pagination" previousLabel="Précedent" nextLabel="Suivant"  (pageChange)="page = $event"></pagination-controls>
+        </div>
+    </div>
+  </div>
+</div>

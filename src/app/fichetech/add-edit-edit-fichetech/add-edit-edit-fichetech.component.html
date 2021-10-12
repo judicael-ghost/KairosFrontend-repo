@@ -1,0 +1,17 @@
+<div *ngIf="!submit" >
+  <div class="form-froup">
+      <label for="quantite_ingredient" >quantite ingredient</label>
+      <input type="number" class="form-control" id="quantite_ingredient" name="quantite_ingredient" [(ngModel)]="rec.quantite_ingredient" >
+  </div>
+  <div class="form-froup">
+      <label for="ingredient" >Nom ingredient</label>
+      <select  id="ingredient"  class="form-control" name="ingredient" [(ngModel)]="rec.ingredient.id" >
+          <option *ngFor="let i of listIngred" [ngValue]="i.id">{{i.nom_ingredient}}</option>
+      </select>
+  </div>
+  <br>
+  <button (click)="updateRec()" *ngIf="rec.id != 0" class="btn btn-primary" data-dismiss="modal" aria-label="Close">
+      Modifier
+  </button>
+</div>
+

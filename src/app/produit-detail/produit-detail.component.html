@@ -1,0 +1,25 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <div class="elementes">
+    <div class="row col-12 chart-gride">
+      <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div class="pie-categorie ">
+          <h1 class="text-center"><span class="head-text">catégorie</span></h1>
+          <ngx-charts-advanced-pie-chart [results]="dataProduit" [view]="pie" label={{labelChart}} animations=true>
+
+          </ngx-charts-advanced-pie-chart>
+        </div>
+
+
+      </div>
+      <div class="pie-produit col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <h1 class="text-center"><span class="head-text">Pourcentage produit</span></h1>
+          <ngx-charts-pie-grid [results]="dataProduit" animations=true [view]="pieProd">
+
+          </ngx-charts-pie-grid>
+
+      </div>
+    </div>
+
+  </div>
+</div>

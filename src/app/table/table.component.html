@@ -1,0 +1,39 @@
+<app-header></app-header>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+			<div class="row element col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<div class="col-4 col-sm-3 col-md-3 col-lg-3 col-xl-3" *ngFor="let tables of table">
+					<div class="card carda" [routerLink]="['/commande', tables.id]">
+					  	<div class="card-body">
+					    	<h1 class="table-title mx-auto">{{ tables.nom }}</h1>
+					  	</div>
+					  	<div class="card-footer carda-foot">
+					  		<h3>Addition</h3>
+					  		<h2 style='font-family: "courier new", monospace !important;'>{{ totalAddition[tables.id] | number : '0.0-2' : 'fr'}} <strong> Ar</strong></h2>
+					  	</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 side">
+			<div class="side-element">
+				<div class="image ml-auto mr-auto">
+					<img alt="image" src={{url+user.profile.image}} class="avatare mx-auto d-block" width="100%">
+					<h2 class="text-center">{{user.first_name}} {{ user.last_name }}</h2>
+
+				</div>
+				<div class="footer">
+
+					<h1 class="recette">Recette  du  jours</h1>
+					<h1 class="text-center vola" style='font-family: "courier new", monospace !important;'>{{ totalJour | number : '0.0-2' : 'fr'}} <strong> Ar</strong></h1><br>
+          <h1 class="lera text-center">{{ heure }}</h1>
+          <h1 class="daty text-center">{{ todayFace | date : "EEEE, d MMMM y" }}</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

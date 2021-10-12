@@ -1,0 +1,38 @@
+::ng-deep .advanced-pie-legend .total-value {
+  margin-bottom: 9px !important;
+}
+
+::ng-deep .advanced-pie-legend .legend-items-container .legend-items {
+  overflow: unset !important;
+}
+
+::ng-deep .advanced-pie-legend .legend-items-container .legend-items .legend-item .item-label {
+  margin-top: 5px !important;
+  font-size: large !important;
+}
+
+.pie-categorie {
+  border: 1px solid silver;
+  padding-top: 10px;
+  border-radius: 5px;
+  margin-top: -5px !important;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 35%);
+
+}
+
+.pie-produit {
+  border: 1px solid silver;
+  padding-top: 10px;
+  border-radius: 5px;
+  margin-top: -5px !important;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 35%);
+}
+
+.head-text {
+  border-bottom: 1px solid silver;
+}
+.chart-gride {
+  margin-top: 20px !important;
+}

@@ -1,0 +1,190 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <div class="element">
+<div *ngIf="!submit" ></div>
+<div class="container">
+    <div class="col-md-12">
+
+
+
+      <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            (click)="closeClick()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <app-add-edit-fichetech *ngIf="activateAddEditEditRecComp"></app-add-edit-fichetech>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+   <div class="modal fade" id="editmodal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+        (click)="closeClick()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <app-add-edit-edit-fichetech [(rec)]="rec" *ngIf="activateAddEditEditRecComp"></app-add-edit-edit-fichetech>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h2 class="modal-title ml-auto" id="modal-basic-title">Ajouter une nouvelle ingredient a la recette</h2>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row col-12">
+            <div class="col-6">
+              <form class="form-categorie">
+                <mat-form-field appearance="legacy" class="produit-label">
+                  <span matPrefix><i class="fa fa-bars fa-2x">&nbsp;&nbsp;</i></span>
+                  <mat-label class="produit-labele">Nom ingredient</mat-label>
+                  <select name ="categorie" matNativeControl [(ngModel)]="ingredient">
+                    <option *ngFor="let ingredient of listIngred" [ngValue]="ingredient.id">{{ingredient.nom_ingredient}}</option>
+                  </select>
+                </mat-form-field>
+              </form>
+            </div>
+            <div class="col-6">
+              <form class="form-client">
+                <mat-form-field appearance="legacy" class="client-label">
+                  <span matPrefix><i class="fa fa-2x">Qte&nbsp;&nbsp;</i></span>
+                  <mat-label class="client-label">Quantite</mat-label>
+                  <input type="text" class="client-input" matInput name ="adresse" [(ngModel)]="quantite_ingredient">
+                </mat-form-field>
+              </form>
+              <form class="form-categorie">
+                <mat-form-field appearance="legacy" class="produit-label">
+                  <span matPrefix><i class="fa fa-2x">U&nbsp;&nbsp;</i></span>
+                  <mat-label class="produit-labele">Unite</mat-label>
+                  <select name ="categorie" matNativeControl [(ngModel)]="unite">
+                    <option *ngFor="let u of listUnite" [ngValue]="u.id">{{u.symbol}}</option>
+                  </select>
+                </mat-form-field>
+              </form>
+            </div>
+        </div>
+        </form>
+        <div *ngIf="submit">
+          <p>{{message}}</p>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-5">
+            <button type="button"  class="btn btn-outline-danger" (click)="modal.dismiss('Cross click')">Annuler</button>
+          </div>
+          <div class="col-5">
+            <button type="submit" class="btn btn-outline-success" (click)="addFich()" (click)="modal.close('Save click')">Enregistrer</button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <h1 class="page-header text-center">Recette du {{produitexact.categorie.nomCate}} {{produitexact.nom}}</h1>
+    <br>
+    <div class="recette-gride">
+    <div class="col-12">
+      <div class="row col-12">
+        <div class="col-8">
+          <div class="col-12 row">
+            <div class="col-6">
+              <div class="form-group">
+                <div class="input-group input-sm">
+                  <div class="input-group-append">
+                    <button class="btn btn-sm" disable type="button">RECHERCHE :</button>
+                  </div>
+                  <input  class="form-control form-control-sm" placeholder="Tapez quelque chose" name="recherche" [formControl]="filter">
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-cust btn-sm" (click)="open(content)"><i class="fa fa-plus-circle"></i>Nouveau ingredient</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="float-right">
+            <select class="form-control form-control-sm" name="page" [(ngModel)]="nbItem" (pageChange)="page = $event">
+              <option value="2">2 par page</option>
+              <option value="5">5 par page</option>
+              <option value="10">10 par page</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  <table class="table table-hover table-sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nom ingredient</th>
+        <th>Quantite ingredient</th>
+
+        <th>Symbole</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+      <tbody>
+          <tr *ngFor="let dataItem of recette$ | async | paginate : {itemsPerPage : nbItem, currentPage : page, totalItems : totalLength}; index as i">
+            <th>{{ i+1 }}</th>
+
+            <td>
+              <ngb-highlight [result]="dataItem.ingredient.nom_ingredient" [term]="filter.value"></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight [result]="dataItem.quantite_ingredient" [term]="filter.value"></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight [result]="dataItem.unite.symbol" [term]="filter.value"></ngb-highlight>
+            </td>
+            <td>
+              <div ngbDropdown class="d-inline-block">
+                <span><i id="dropdownBasic1" ngbDropdownToggle class="drop">Option</i></span>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button ngbDropdownItem (click)="deleteClick(dataItem)">Supprimer</button>
+                  <button ngbDropdownItem data-toggle="modal" data-target="#exampleModal"
+                  (click)="editClick(dataItem)"
+                  data-backdrop="static" data-keyboard="false"
+                  data-toggle="modal" data-target="#editmodal">Modifier</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+  </table>
+  <div style="text-align: center;" *ngIf="searchResult == false">
+    Aucun élément
+  </div><br>
+    <div class="text-center">
+      <pagination-controls class="text-center my-pagination"
+      previousLabel="Précedent"
+      nextLabel="Suivant"
+      (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </div>
+  </div>
+</div>
+  </div>

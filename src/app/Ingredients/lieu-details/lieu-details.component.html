@@ -1,0 +1,74 @@
+
+          <app-header></app-header>
+          <div class="row">
+            <div class="col-2">
+              <app-stock-menu></app-stock-menu>
+            </div>
+            <div class="col-10">
+          <div class="container-fluid">
+            <div class="element">
+          <div class="col-md-12" *ngIf="currentLieu.id">
+            <!-- jquery validation -->
+            <div class="card card-primary">
+              <!-- form start -->
+              <form id="quickForm">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="nom_lieu">Nom lieu</label>
+                    <input id="nom_lieu"
+                    [(ngModel)]="currentLieu.nom_lieu"
+                    name="nom_lieu" class="form-control" placeholder="Enter lieu">
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button class="btn btn-danger" (click)="deleteLieu()">Supprimer</button>
+
+                    &nbsp;&nbsp;
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    (click)="updateLieu()"
+                  >
+                    Modifier
+                  </button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+          <!--/.col (left) -->
+          <div *ngIf="message" class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                  {{ message }}
+          </div>
+          <div *ngIf="!currentLieu.id">
+            <br />
+            <p>Cannot access this Lieu...</p>
+          </div>
+
+
+            <!-- Modal delete-->
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Supprimer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p class="text-xl-center">Vous êtes sûre de vouloire supprimer cet lieu <mark>{{currentLieu.nom_lieu}}</mark> ? Car si vous supprimer cet lieu, toutes les Tsena qui sont réliés à elle sont également supprimer avec.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-outline-danger"  data-bs-dismiss="modal" aria-label="Close">Supprimer</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+            </div>
+          </div>
+          </div>
+

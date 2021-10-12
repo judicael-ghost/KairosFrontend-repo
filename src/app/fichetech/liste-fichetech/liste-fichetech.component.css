@@ -1,0 +1,14 @@
+.my-pagination /deep/ .ngx-pagination .current{
+  background: #A50134 !important;
+}
+::ng-deep .ngb-highlight {
+  color: #A50134 !important;
+}
+.recette-gride{
+  border: 1px solid silver;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: -5px !important;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 35%);
+}

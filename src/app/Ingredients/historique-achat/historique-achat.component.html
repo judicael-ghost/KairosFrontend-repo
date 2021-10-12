@@ -1,0 +1,84 @@
+<app-header></app-header>
+<div class="row">
+  <div class="col-2">
+    <app-stock-menu></app-stock-menu>
+  </div>
+  <div class="col-10">
+<div class="container-fluid">
+  <div class="element">
+    <h1 class="fw-light text-lg-start mt-4 mb-0">Liste des historiques d'achat : <mark>{{depense | number : '0.0-2' : 'fr'}} AR</mark></h1>
+        <hr class="mt-1 mb-3">
+
+<div class="table-responsive-xxl" id="htmlData">
+  <div class="col-12">
+    <div class="row col-12">
+      <div class="col-3">
+        <div class="form-group">
+          <div class="input-group input-sm">
+            <div class="input-group-append">
+              <button class="btn btn-sm" disable type="button">RECHERCHE :</button>
+            </div>
+            <input id="recherche" [formControl]="filter" class="form-control form-control-sm" placeholder="Tapez quelque chose" name="recherche">
+          </div>
+        </div>
+      </div>
+      <div class="col-9 ">
+        <div class="float-right">
+          <select class="form-control form-control-sm" [(ngModel)]="nbItem"  (pageChange)="page = $event">
+            <option value="2">2 par page</option>
+            <option value="5">5 par page</option>
+            <option value="10">10 par page</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+<table class="table table-hover table-sm">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Produit</th>
+        <th scope="col">Quantité</th>
+        <!--<th scope="col">Unite</th>-->
+        <th scope="col">Prix Unitaire</th>
+        <th scope="col">Montant</th>
+        <th scope="col">Lieu</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let h of historique$ | async  | paginate : {itemsPerPage : nbItem, currentPage : page, totalItems : totalLength}; index as i">
+        <th>{{ i+1 }}</th>
+          <td>
+            <ngb-highlight [result]="h.nom_ingredient" [term]="filter.value"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="h.achat_quantite" [term]="filter.value"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="h.achat_prix_unitaire" [term]="filter.value"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="h.achat_montant" [term]="filter.value"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="h.achat_lieu" [term]="filter.value"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="this.datepipe.transform(h.date_created, 'dd/MM/yyyy HH:mm')" [term]="filter.value"></ngb-highlight>
+          </td>
+        <!--<td colspan="5"></td>-->
+
+      </tr>
+    </tbody>
+  </table>
+  <div style="text-align: center;" *ngIf="searchResult == false">
+    Aucun élément
+  </div><br>
+    <div class="text-center">
+      <pagination-controls class="text-center my-pagination"  previousLabel="Précedent" nextLabel="Suivant" (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </div>
+  </div>
+</div>
+</div>

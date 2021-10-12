@@ -1,0 +1,26 @@
+.body {
+  overflow: hidden !important;
+  display: block !important;
+}
+.ligne {
+  border-bottom: silver solid 1px !important;
+}
+.stat-liste {
+  overflow-y: auto;
+  max-height: 430px !important;
+  overflow-x: hidden !important;
+}
+.my-pagination /deep/ .ngx-pagination .current{
+  background: #A50134 !important;
+}
+::ng-deep .ngb-highlight {
+  color: #A50134 !important;
+}
+.gride-detail {
+  border: 1px solid silver;
+  padding-top: 10px;
+  border-radius: 5px;
+  margin-top: -5px !important;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 35%);
+}

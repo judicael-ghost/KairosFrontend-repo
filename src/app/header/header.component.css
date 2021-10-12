@@ -1,0 +1,28 @@
+.btn-valide {
+  border: #A50134 solid 2px;
+  color: white;
+  background-color: #A50134;
+  font-weight: bold;
+}
+.btn-valide:hover{
+  border: #660022 solid 2px;
+  background-color: #660022;
+  color: white;
+}
+.notif-body {
+  min-width: 300px !important;
+}
+.notif-zone {
+  margin-bottom: 5px;
+}
+.display {
+  display: none;
+}
+.ico-fa {
+  cursor: pointer;
+}
+
+.fa-sign-out-alt {
+  margin-top: 7px !important;
+  transform: scale(2.2) !important;
+}

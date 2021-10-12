@@ -1,0 +1,64 @@
+<div *ngIf="!submit" ></div>
+<div class="container">
+    <div class="col-md-12">
+      <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            (click)="closeClick()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+         <!--
+           <div class="modal-body">
+            <app-add-edit-afftec *ngIf="activateAddEditEditRecComp"></app-add-edit-afftec>
+          </div>
+        -->
+
+        </div>
+      </div>
+    </div>
+
+   <div class="modal fade" id="editmodal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+        (click)="closeClick()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--<div class="modal-body">
+            <app-add-edit-edit-afftec [(rec)]="rec" *ngIf="activateAddEditEditRecComp"></app-add-edit-edit-afftec>
+          </div>
+        -->
+        </div>
+      </div>
+    </div>
+    <h1>liste de recette de {{produitexact.nom_produit}}</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>quantite ingredient</th>
+        <th>nom ingredient</th>
+
+      </tr>
+    </thead>
+      <tbody>
+          <tr *ngFor="let dataItem of ProduitRecette">
+              <td>{{dataItem.quantite_ingredient}} </td>
+              <td>{{dataItem.ingredient.nom_ingredient}} </td>
+              <td>
+
+
+
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  </div>

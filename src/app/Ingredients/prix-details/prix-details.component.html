@@ -1,0 +1,74 @@
+
+          <app-header></app-header>
+          <div class="row">
+            <div class="col-2">
+              <app-stock-menu></app-stock-menu>
+            </div>
+            <div class="col-10">
+          <div class="container-fluid">
+            <div class="element">
+          <div class="col-md-12" *ngIf="currentPrix.id">
+            <!-- jquery validation -->
+            <div class="card card-primary">
+              <!-- form start -->
+              <form id="quickForm">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="prix_unitaire">Prix</label>
+                    <input id="prix_unitaire"
+                    [(ngModel)]="currentPrix.prix_unitaire"
+                    name="prix_unitaire" class="form-control" placeholder="Enter prix">
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button class="btn btn-danger" (click)="deletePrix()" >Supprimer</button>
+
+                    &nbsp;&nbsp;
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    (click)="updatePrix()"
+                  >
+                    Modifier
+                  </button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+          <!--/.col (left) -->
+          <div *ngIf="message" class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                  {{ message }}
+          </div>
+          <div *ngIf="!currentPrix.id">
+            <br />
+            <p>Cannot access this Prix...</p>
+          </div>
+
+
+           <!-- Modal delete-->
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Supprimer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p class="text-xl-center">Vous êtes sûre de vouloire supprimer le prix <mark>{{currentPrix.prix_unitaire}}</mark> ? Car si vous supprimer cet prix, toutes les Tsena qui sont réliés à elle sont également supprimer avec.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-outline-danger" (click)="deletePrix()" data-bs-dismiss="modal" aria-label="Close">Supprimer</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+            </div>
+          </div>
+            </div>
+

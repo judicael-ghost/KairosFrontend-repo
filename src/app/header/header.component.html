@@ -1,0 +1,63 @@
+<div>
+  <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top navi">
+    <a class="navbar-brand ml-50 logo" *ngIf="api.userType == true" [routerLink]="['/accueil']"><img src="assets/img/kairos.png" class="logo-img"></a>
+    <a class="navbar-brand ml-50 logo" *ngIf="api.userType == false" [routerLink]="['/table']"><img src="assets/img/kairos.png" class="logo-img"></a>
+    <ul class="navbar-nav ml-auto item">
+      <li class="nav-item" *ngIf="api.userType == true">
+        <a class="nav-link linke"><span class="link-title" routerLinkActive='link-activa' [routerLink]="['/achat']">Commande</span></a>
+      </li>
+      <li class="nav-item" *ngIf="api.userType == true">
+        <a class="nav-link linke"><span class="link-title" routerLinkActive='link-activa' [routerLink]="['/facture']">Facture</span></a>
+      </li>
+      <li class="nav-item" *ngIf="api.userType == true">
+        <a class="nav-link linke"><span class="link-title" routerLinkActive='link-activa' [routerLink]="['/produit']">Produit</span></a>
+      </li>
+      <li class="nav-item" *ngIf="api.userType == true">
+        <a class="nav-link linke"><span class="link-title" routerLinkActive='link-activa' [routerLink]="['/ingredients']">Stock</span></a>
+      </li>
+      <li class="nav-item" *ngIf="api.userType == true">
+        <a class="nav-link linke"><span class="link-title" routerLinkActive='link-activa' [routerLink]="['/client']">Client</span></a>
+      </li>
+      <li class="nav-item" *ngIf="api.userType == true">
+        <a class="nav-link linke"><span class="link-title" routerLinkActive='link-activa' [routerLink]="['/parametre']">Paramètre</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ico"  popoverClass="notif-body" [ngbPopover]="popContente" [popoverTitle]="popTitle" [autoClose]="'outside'" triggers="manual" #e="ngbPopover" (click)="e.open()" popoverTitle="Pop title" routerLinkActive='link-activa'><i class="fa fa-globe fa-2x ico-fa" matBadge={{nbCommande}} matBadgeColor="warn" matBadgeSize="medium"></i></a>
+        <ng-template #popTitle popoverClass="text-center"><h3 class="text-center">Notification</h3></ng-template>
+        <ng-template #popContente>
+          <div *ngFor="let com of commande; let i = index" [class.active]="i == currentIndex" (click)="setActiveCommande(com, i)" class="notif-zone">
+            <ngb-toast *ngIf="show"  header="Message : Nouvelle commande" [autohide]="false" (hidden)="close(com.id)">
+              <span class="notif-info"><strong>{{ com.nom }} {{ com.prenom }}</strong><br>
+              Adresse : <strong>{{ com.adresse }} </strong>  , Tél : <strong> {{ com.tel }}</strong><br>
+              <button class="btn-valide btn btn-sm btn-block">Valider</button></span>
+            </ngb-toast>
+          </div>
+          <div [ngClass]="{'display':displayLigne}">
+            Aucune notification
+          </div>
+        </ng-template>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link ico"  popoverClass="notif-body" [ngbPopover]="popContent" [popoverTitle]="popTitle" [autoClose]="'outside'" triggers="manual" #p="ngbPopover" (click)="p.open()" popoverTitle="Pop title" routerLinkActive='link-activa'><i class="fa fa-bell fa-2x ico-fa" matBadge={{api.nbTest.length}} matBadgeColor="warn" matBadgeSize="medium"></i></a>
+        <ng-template #popTitle popoverClass="text-center"><h3 class="text-center">Notification</h3></ng-template>
+        <ng-template #popContent>
+          <div *ngFor="let c of api.nbTest" class="notif-zone">
+            <ngb-toast *ngIf="show"  header="Message : Cet client est à 10 points" [autohide]="false" (hidden)="close(c.id)">
+              <span class="notif-info"><strong>{{ c.nom }} {{ c.prenom }}</strong><br>
+              Adresse : <strong>{{ c.adresse }} </strong>  , Tél : <strong> {{ c.tel }}</strong><br>
+              <button class="btn-valide btn btn-sm btn-block" (click)="validerBonus(c)">Valider</button></span>
+            </ngb-toast>
+          </div>
+          <div [ngClass]="{'display':api.display}">
+            Aucune notification
+          </div>
+        </ng-template>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link ico" (click)='logout()' type='submit' routerLinkActive='link-activa'><fa-icon [icon]="faSignOutAlt" class="ico-fa"></fa-icon></a>
+      </li>
+    </ul>
+  </nav>
+</div>

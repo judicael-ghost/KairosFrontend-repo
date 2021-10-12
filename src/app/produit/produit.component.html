@@ -1,0 +1,248 @@
+<app-header></app-header>
+<div class="container-fluid">
+	<div class="elementes">
+    <div class="col-12 row dash-produit">
+      <br>
+      <div class="col-lg-3 col-6 dash">
+        <!-- small box -->
+        <div class="small-box premier">
+          <div class="inner">
+            <h3>{{ nbProduit }}</h3>
+
+            <p>Nombre produits</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+          <a class="small-box-footer"></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6 dash">
+        <!-- small box -->
+        <div class="small-box troixieme">
+          <div class="inner">
+            <h3>{{ nbCategorie }}</h3>
+
+            <p>Nombre categories de produit</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+          <a class="small-box-footer"></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6 dash">
+        <!-- small box -->
+        <div class="small-box deuxieme">
+          <div class="inner">
+            <h3>{{ max }} <span style="font-size: medium;"> {{ nameMax }}</span></h3>
+
+            <p style="margin-top: -6px;">Produit le plus commander</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+          <a class="small-box-footer"></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6 dash">
+        <!-- small box -->
+        <div class="small-box quatrieme">
+          <div class="inner">
+            <h3>{{ min }} <span style="font-size: medium;"> {{ nameMin }}</span></h3>
+
+            <p style="margin-top: -6px;">Produit le moins commander</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+          </div>
+          <a class="small-box-footer"></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 row">
+      <div class="col-2 grid-categorie">
+        <div class="col-11 float-right div-news">
+          <button type="button" class="btn btn-cust btn-sm" (click)="open(modalCate)" (click)="onAnnuler()"><i class="fa fa-plus-circle"></i> Nouvelle categorie</button>
+        </div>
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr class="text-center">
+              <th> Nom </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center" *ngFor="let c of categorieList">
+              <td> {{ c.nomCate }} </td>
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <span><i id="dropdownBasic1" ngbDropdownToggle class="drop">Option</i></span>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem [routerLink]="['/produit', c.id]">Plus de details</button>
+                    <button ngbDropdownItem (click)="deleteCategorie(c.id)" >Supprimer</button>
+                    <button ngbDropdownItem (click)="onClickedCategorie(c.id)" (click)="open(modalCate)">Modifier</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #modalCate let-modal>
+          <div class="modal-header">
+            <h2 class="modal-title ml-auto" id="modal-basic-title">Nouvelle Categorie</h2>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="onAnnuler()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="form-categorie">
+              <mat-form-field appearance="legacy" class="produit-label">
+                <span matPrefix><i class="fa fa-bars fa-2x">&nbsp;&nbsp;</i></span>
+                <mat-label class="produit-label">Nom du categorie</mat-label>
+                <input type="text" class="produit-input" matInput name ="nom" [(ngModel)]="categorieClicked.nom">
+              </mat-form-field>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-5">
+                <button type="button"  class="btn btn-outline-danger" (click)="modal.dismiss('Cross click')" (click)="onAnnuler()">Annuler</button>
+              </div>
+              <div class="col-5">
+                <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')" (click)="onEnregistrer()">Enregistrer</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 dash grid-produits">
+        <div class="col-12">
+          <div class="row col-12">
+            <div class="col-8">
+              <div class="col-12 row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <div class="input-group input-sm">
+                      <div class="input-group-append">
+                        <button class="btn btn-sm" disable type="button">RECHERCHE :</button>
+                      </div>
+                      <input  class="form-control form-control-sm" placeholder="Tapez quelque chose" name="recherche" [formControl]="filter">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn btn-cust btn-sm" (click)="open(content)" (click)="onAnnulerProduit()"><i class="fa fa-plus-circle"></i> Nouveau produit</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="float-right">
+                <select class="form-control form-control-sm" name="page" [(ngModel)]="nbItem" (pageChange)="page = $event">
+                  <option value="2">2 par page</option>
+                  <option value="5">5 par page</option>
+                  <option value="10">10 par page</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <table class="table table-sm table-hover">
+          <thead>
+          <tr class="text-center">
+            <th>#</th>
+            <th>Categorie</th>
+            <th>Nom</th>
+            <th>Prix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" *ngFor="let p of produit$ | async | paginate : {itemsPerPage : nbItem, currentPage : page, totalItems : totalLength}; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              <ngb-highlight [result]="p.categorie.nomCate" [term]="filter.value"></ngb-highlight>
+            </td>
+            <td><ngb-highlight [result]="p.nom" [term]="filter.value"></ngb-highlight></td>
+            <td><ngb-highlight [result]="p.prix | number" [term]="filter.value"></ngb-highlight> AR</td>
+            <td>
+              <div ngbDropdown class="d-inline-block">
+                <span><i id="dropdownBasic1" ngbDropdownToggle class="drop">Option</i></span>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button ngbDropdownItem [routerLink]="['/fichetech', p.id]">Plus de détail</button>
+                  <button ngbDropdownItem (click)="deleteProduit(p.id)" >Supprimer</button>
+                  <button ngbDropdownItem (click)="onClicked(p.id)" (click)="open(content)">Modifier</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+        <div style="text-align: center;" *ngIf="searchResult == false">
+          Aucun élément
+        </div>
+        <br>
+          <div class="text-center">
+            <pagination-controls #myPaginator class="text-center my-pagination" previousLabel="Précedent" nextLabel="Suivant" responsive="true" (pageChange)="page = $event; test()"></pagination-controls>
+          </div>
+
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h2 class="modal-title ml-auto" id="modal-basic-title">FORMULAIRE</h2>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="onAnnulerProduit()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row col-12">
+                <div class="col-6">
+                  <form class="form-categorie">
+                    <mat-form-field appearance="legacy" class="produit-label">
+                      <span matPrefix><i class="fa fa-bars fa-2x">&nbsp;&nbsp;</i></span>
+                      <mat-label class="produit-labele">categorie</mat-label>
+                      <select name ="categorie" matNativeControl [(ngModel)]="produitClicked.categorie.nomCate" (change)="onCategorieChanged($event)">
+                        <option *ngFor="let cate of categorieList" [value]="cate.id">{{cate.nomCate}}</option>
+                      </select>
+                    </mat-form-field>
+                  </form>
+                  <form class="form-categorie">
+                    <mat-form-field appearance="legacy" class="produit-label">
+                      <span matPrefix><i class="fa fa-plus fa-2x">&nbsp;&nbsp;</i></span>
+                      <mat-label class="produit-label">Nom du produit</mat-label>
+                      <input type="text" class="produit-input" matInput name ="nom" [(ngModel)]="produitClicked.nom" (change)="onNomChanged($event)">
+                    </mat-form-field>
+                  </form>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <input type="file" class="form-control form-control-sm file-image" name="cover" (change)="onImageChanged($event)" />
+                  </div>
+                  <form class="form-categoriee">
+                    <mat-form-field appearance="legacy" class="produit-label">
+                      <span matPrefix><h1><i class="fa"></i><strong>Ar</strong>&nbsp;&nbsp;</h1></span>
+                      <mat-label class="produit-label">Prix du produit</mat-label>
+                      <input type="text" class="produit-input" matInput name ="prix" [(ngModel)]="produitClicked.prix" (change)="onPrixChanged($event)">
+                    </mat-form-field>
+                  </form>
+                </div>
+            </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-5">
+                <button type="button"  class="btn btn-outline-danger" (click)="modal.dismiss('Cross click')" (click)="onAnnulerProduit()">Annuler</button>
+              </div>
+              <div class="col-5">
+                <button type="button" class="btn btn-outline-success" (click)="onSave()" (click)="modal.close('Save click')">Enregistrer</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</div>

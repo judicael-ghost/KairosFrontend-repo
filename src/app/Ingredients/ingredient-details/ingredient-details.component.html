@@ -1,0 +1,304 @@
+<app-header></app-header>
+<div class="row">
+  <div class="col-2">
+    <app-stock-menu></app-stock-menu>
+  </div>
+  <div class="col-10">
+<div class="container-fluid">
+  <div class="element">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Details</a>
+        <ng-template ngbNavContent>
+          <h4 class="fw-light text-lg-start mt-4 mb-0">Modifier ou Supprimer  <mark>{{currentIngredient.nom_ingredient}}</mark></h4>
+      <hr class="mt-1 mb-3">
+        <div class="col-md-12" *ngIf="currentIngredient.id">
+
+            <form class="was-validated" novalidate>
+              <div class="mb-3">
+                 <label for="nom_ingredient">Nom Ingredient</label>
+                    <input
+                      type="text"
+                   id="nom_ingredient"
+                  [(ngModel)]="currentIngredient.nom_ingredient"
+                  name="nom_ingredient"  class="form-control"
+                  placeholder="Entrer le nom de l'ingredient" aria-label="text example" required />
+                <div class="invalid-feedback">Entrez le nom de l'ingredient!</div>
+                </div>
+                <div class="mb-3">
+                  <label for="categorie">Categorie</label>
+                  <select id="categorie" [(ngModel)]="currentIngredient.categorie.id" name='categorie'  class="form-control" required aria-label="select example">
+                    <option *ngFor='let category of categories' [ngValue]="category.id" >{{ category.nom_categorie }}
+                    </option>
+                  </select>
+                  <div class="invalid-feedback">Choisisiez le categorie!</div>
+                </div>
+                <div class="mb-3">
+                  <label for="unite">Unite</label>
+                    <select id="unite" class="form-control color-gray" [(ngModel)]="currentIngredient.unite.id" name='unite'  class="form-control" required aria-label="select example">
+                    <option *ngFor='let unite of unites' [ngValue]="unite.id" >{{ unite.nom_unite }}
+                    </option>
+                  </select>
+                  <div class="invalid-feedback">Choisisiez l'unite!</div>
+                </div>
+              <!-- /.card-body -->
+              <div class="modal-footer">
+                <button (click)="viderIngredient()" [disabled]="!greater_thane(currentIngredient.quantite_stock)" class="btn btn-warning">
+                Vider Stock
+                </button>
+                  <button class="btn btn-danger"  (click)="deleteIngredient()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                    Supprimer<i class="bi bi-trash"></i></button>
+
+                <button
+                  type="submit"
+                  class="btn btn-success" (click)="updateIngredient()">
+                  Modifier
+                </button>
+              </div>
+            </form>
+          <!-- /.card -->
+          </div>
+
+        <div *ngIf="!currentIngredient.id">
+          <br />
+          <p>Cannot access this Unite...</p>
+        </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink>Parametre</a>
+        <ng-template ngbNavContent>
+          <h4 class="fw-light text-lg-start mt-4 mb-0">Paramêtre pour quantité d'alerte de  <mark>{{currentIngredient.nom_ingredient}}</mark></h4>
+      <hr class="mt-1 mb-3">
+        <form class="was-validated" *ngIf="currentIngredient.id" novalidate>
+          <div class="mb-3">
+             <label for="alerte_quantite">Quantite Alerte</label>
+                <input
+                  type="text"
+              class="form-control"
+               id="alerte_quantite"
+              [(ngModel)]="currentIngredient.alerte_quantite"
+              name="alerte_quantite" class="form-control"
+              placeholder="Entrer un quantite alerte" aria-label="text example" required/>
+                <div class="invalid-feedback">Entrez le quantite alerte de l'ingredient!</div>
+              </div>
+          <!-- /.card-body -->
+          <div class="modal-footer">
+            <button
+              type="submit"
+              class="btn btn-success"
+              (click)="parametreIngredient()"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+
+    <div *ngIf="!currentIngredient.id">
+      <br />
+      <p>Cannot access this Ingredient...</p>
+    </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <a ngbNavLink>Achat</a>
+        <ng-template ngbNavContent>
+          <h4 class="fw-light text-lg-start mt-4 mb-0">Approvisionner  <mark>{{currentIngredient.nom_ingredient}}</mark></h4>
+      <hr class="mt-1 mb-3">
+
+      <div class="col-md-12" *ngIf="currentIngredient.id">
+
+          <form class="was-validated" novalidate>
+            <div class="mb-3">
+                <label for="achat_lieu">Lieu d'achat</label>
+                  <select id="achat_lieu" class="form-control color-gray" [(ngModel)]="currentIngredient.achat_lieu.id" name='achat_lieu'  required aria-label="select example">
+                  <option *ngFor='let lieuxx of lieux' [ngValue]="lieuxx.lieu.id" >{{ lieuxx.lieu.nom_lieu }}
+                  </option>
+                </select>
+                <div class="invalid-feedback">Choisisiez le lieu d'Achat!</div>
+                <button class="btn btn-success" (click)="open(marcher)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                <i class="bi bi-plus-circle"></i>
+              </button>
+              </div>
+              <div class="mb-3">
+                <label for="achat_quantite">Quantite</label>
+                  <input
+                  type="text"
+                  id="achat_quantite"
+                  required
+                  [(ngModel)]="currentIngredient.achat_quantite"
+                  name="achat_quantite"
+                  placeholder="Entrez quantité"
+                  class="form-control"
+                    aria-label="text example" required
+                  />
+                  <div class="invalid-feedback">Entrez le quantite de l'ingredient à acheter!</div>
+              </div>
+
+            <div class="modal-footer">
+                        <button
+                          type="submit"
+                          class="btn btn-success"
+                          (click)="achatIngredient()"
+                        >
+                          ENREGISTRER
+                        </button>
+                      </div>
+          </form>
+        </div>
+        <h4 class="fw-light text-lg-start mt-4 mb-0">Faire un don  <mark>{{currentIngredient.nom_ingredient}}</mark></h4>
+        <hr class="mt-1 mb-3">
+
+        <div class="col-md-12" *ngIf="currentIngredient.id">
+
+          <form class="was-validated" novalidate>
+              <div class="mb-3">
+                <label for="don_quantite">Quantite de don</label>
+                  <input
+                  type="text"
+                  id="don_quantite"
+                  required
+                  [(ngModel)]="currentIngredient.don_quantite"
+                  name="achat_quantite"
+                  placeholder="Entrez quantité"
+                  class="form-control"
+                   aria-label="text example" required
+                  />
+                  <div class="invalid-feedback">Entrez le quantite de l'ingredient!</div>
+              </div>
+
+            <div class="modal-footer">
+                        <button
+                          type="submit"
+                          class="btn btn-success"
+                          (click)="donIngredient()"
+                        >
+                          FAIRE UN DON
+                        </button>
+                      </div>
+          </form>
+      </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="4">
+        <a ngbNavLink>Historique</a>
+        <ng-template ngbNavContent>
+          <h4 class="fw-light text-lg-start mt-4 mb-0">Liste des achats <mark>{{currentIngredient.nom_ingredient}}</mark>.</h4>
+      <hr class="mt-1 mb-3">
+      <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Date</th>
+              <th scope="col">Quantité</th>
+              <th scope="col">Unite</th>
+              <th scope="col">Prix Unitaire</th>
+              <th scope="col">Montant</th>
+              <th scope="col">Lieu</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of historyAchat; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{ this.datepipe.transform(item.date_created, 'HH:mm, EEEE, MMMM d, y') }}</td>
+              <td>{{item.achat_quantite}}</td>
+              <td>{{item.unite}}</td>
+              <td>{{item.achat_prix_unitaire}}</td>
+              <td>{{item.achat_montant}}</td>
+              <td>{{item.achat_lieu}}</td>
+            </tr>
+          </tbody>
+        </table>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="5">
+        <a ngbNavLink>Statistique</a>
+        <ng-template ngbNavContent>
+          <h4 class="fw-light text-lg-start mt-4 mb-0">Statistique de  <mark>{{currentIngredient.nom_ingredient}}</mark></h4>
+          <hr class="mt-1 mb-3">
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+<ng-template #delete let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel">Supprimer</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="text-xl-center">Vous êtes sûre de vouloire supprimer l'Ingredient <mark>{{currentIngredient.nom_ingredient}}</mark> ? Car si vous supprimer cette ingredient, toutes les Tsena qui sont réliés à elle sont également supprimer avec.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Annuler</button>
+    <button type="button" class="btn btn-danger" (click)="deleteIngredient()" (click)="modal.close('Save click')" >Supprimer</button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #marcher let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel">Créer Marcher pour <mark>{{currentIngredient.nom_ingredient}}</mark></h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label for="achat_lieu">Lieu</label>
+        <select id="achat_lieu" [(ngModel)]="lieuAjout" class="form-control color-gray" name='achat_lieu'  class="form-control" required aria-label="select example">
+          <option>-- Choisissez Lieu --</option>
+          <option *ngFor='let lieuxx of lieuxmarcher' [ngValue]="lieuxx.id" >{{ lieuxx.nom_lieu }}
+        </option>
+      </select>
+      <div class="invalid-feedback">Choisisiez le lieu!</div>
+    </div>
+    <div class="mb-3">
+      <label for="prix">Prix Unitaire</label>
+        <select id="prix" [(ngModel)]="prixAjout" class="form-control color-gray" class="form-control" required aria-label="select example">
+        <option>Prix unitaire</option>
+          <option *ngFor='let prixx of prix' [ngValue]="prixx.id" >{{ prixx.prix_unitaire }}
+        </option>
+      </select>
+      <div class="invalid-feedback">Choisisiez le prix unitaire!</div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss('Cross click')">Annuler</button>
+    <button type="button" class="btn btn-outline-success" (click)="saveMarcher()" (click)="modal.close('Save click')" >Enregistrer</button>
+  </div>
+</ng-template>
+
+<ng-template #videna let-model>
+  <div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel">Vider <mark>{{currentIngredient.nom_ingredient}}</mark></h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+    <div class="modal-body">
+      <p class="text-xl-center">Vous êtes sûre de vouloire vider le stock de l'Ingredient <mark>{{currentIngredient.nom_ingredient}}</mark></p>
+    </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" >Annuler</button>
+    <button type="button" class="btn btn-outline-danger" (click)="viderIngredient()" (click)="modal.dismiss('Cross click')">Supprimer</button>
+  </div>
+</ng-template>
+ <!-- Modal marcher-->
+
+  </div>
+</div>
+</div>

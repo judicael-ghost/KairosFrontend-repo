@@ -1,0 +1,188 @@
+<app-header></app-header>
+<div class="row">
+  <div class="col-2">
+    <app-stock-menu></app-stock-menu>
+  </div>
+  <div class="col-10">
+<div class="container-fluid">
+  <div class="element">
+<form class="was-validated" *ngIf="!submitted" novalidate>
+  <div class="mb-3">
+    <label for="nom_ingredient" class="form-label">Nom Ingredient</label>
+    <input type="text" (change)="onIngredient($event)"  class="form-control" id="nom_ingredient" placeholder="Entrer nom ingredient" aria-label="text example" required><!-- formControlName="nom_ingredient" -->
+    <div class="invalid-feedback">Entrez le nom de l'ingredient!</div>
+  </div>
+  <div class="mb-3">
+    <label for="categorie">Categorie</label>
+    <select id="categorie" (change)="onCategorie($event)" class="form-control" required aria-label="select example"> <!--[(ngModel)]="ingredient.categorie"     formControlName="categorie" -->
+      <option selected value="">Choisissez Categorie</option>
+      <option *ngFor='let category of categories' value="{{category.id}}" >{{ category.nom_categorie }}
+      </option>
+    </select>
+    <div class="invalid-feedback">Choisisiez le categorie!</div>
+  </div>
+  <button class="btn btn-success"  (click)="open(cate)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+  </svg>
+  <i class="bi bi-plus-circle"></i>
+</button>
+  <div class="mb-3">
+    <label for="unite">Unite</label>
+      <select id="unite" (change)="onUnite($event)" class="form-control" required aria-label="select example"> <!--   [(ngModel)]="ingredient.unite" formControlName="unite"-->
+        <option selected value="">Choisissez Unite</option>
+        <option *ngFor='let unite of unites' value="{{unite.id}}" >{{ unite.nom_unite }}
+      </option>
+    </select>
+    <div class="invalid-feedback">Choisisiez l'unite!</div>
+  </div>
+  <button class="btn btn-success" (click)="open(unitt)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+  </svg>
+  <i class="bi bi-plus-circle"></i>
+</button>
+  <div class="mb-3">
+    <label for="quantite_stock" class="form-label">Quantité</label>
+    <input type="number" (change)="onQuantite($event)"  class="form-control" id="quantite_stock" placeholder="Entrer son quantité" aria-label="number example" required> <!--[(ngModel)]="ingredient.quantite_stock" formControlName="quantite_stock"-->
+    <div class="invalid-feedback">Entrez le quantité!</div>
+  </div>
+  <div class="mb-3">
+    <label for="achat_lieu">Predefinir Lieu d'achat</label>
+      <select id="achat_lieu" (change)="onLieu($event)" class="form-control" required aria-label="select example"> <!-- [(ngModel)]="ingredient.achat_lieu"  formControlName="achat_lieu"-->
+      <option selected value="">Choisissez Lieu d'achat</option>
+      <option *ngFor='let lieuxx of lieux' value="{{lieuxx.id}}" >{{ lieuxx.nom_lieu }}
+      </option>
+    </select>
+    <div class="invalid-feedback">Choisisiez un lieu d'achat!</div>
+  </div>
+  <button class="btn btn-success" (click)="open(lieuu)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+  </svg>
+  <i class="bi bi-plus-circle"></i>
+</button>
+  <div class="mb-3">
+    <label for="image" class="form-label">Selectionner une image</label>
+     <!--<input type="file" id="image" name="image" formControlName="image"   [(ngModel)]="ingredient.image" /><input type="file" id="image" name="image" (change)="uploadFile($event)">-->
+     <input type="file" class="form-control" id="image" (change)="selectFile($event)" aria-label="file example" required/>
+     <div class="invalid-feedback">Entrez un image!</div>
+  </div>
+
+  <div *ngIf="currentFile" class="progress my-3">
+    <div
+    class="progress-bar bg-success progress-bar-info progress-bar-striped"
+    role="progressbar"
+    attr.aria-valuenow="{{ progress }}"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    [ngStyle]="{ width: progress + '%' }"
+    >
+    {{ progress }}%
+    </div>
+    </div>
+
+    <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" [disabled]="!nom_ingredient || !categorie || !unite || !quantite_stock || !achat_lieu || !selectedFiles" (click)="upload()"  type="submit">Valider</button> <!--(click)="saveIngredient()"-->
+  </div>
+</form>
+  </div>
+</div>
+</div>
+
+<ng-template #lieuu let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel"><mark>Nouvelle Lieu</mark></h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form *ngIf="!submitted" class="was-validated" novalidate>
+      <div class="card-body">
+          <div class="mb-3">
+          <label for="nom_lieu">Nom Lieu</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nom_lieu"
+              class="form-control"
+              [(ngModel)]="lieuCrud.nom_lieu"
+              name="nom_lieu" placeholder="Nom lieu"
+              aria-label="text example" required
+            />
+            <div class="invalid-feedback">Entrez le nom de lieu!</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Annuler</button>
+        <button type="button" (click)="saveLieu()" [disabled]="!lieuCrud.nom_lieu" class="btn btn-outline-success"  (click)="modal.dismiss('Cross click')">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #unitt let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel"><mark>Nouvelle Unite</mark></h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form *ngIf="!submitted" class="was-validated" novalidate>
+      <div class="card-body">
+          <div class="mb-3">
+          <label for="nom_unite">Nom Unite</label>
+            <input
+              type="text"
+          class="form-control"
+          id="nom_unite" [(ngModel)]="uniteCrud.nom_unite"
+          name="nom_unite" class="form-control"
+          aria-label="text example" required/>
+          <div class="invalid-feedback">Entrez le nom de l'unite!</div>
+        </div>
+        <div class="mb-3">
+          <label for="symbol">Symbole</label>
+            <input class="form-control"
+          id="symbol"  [(ngModel)]="uniteCrud.symbol"
+          name="symbol"  class="form-control"
+          aria-label="text example" required/>
+            <div class="invalid-feedback">Entrez symbole!</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Annuler</button>
+        <button type="button" (click)="saveUnite()" [disabled]="!uniteCrud.nom_unite || !uniteCrud.symbol" class="btn btn-outline-success"  (click)="modal.dismiss('Cross click')">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #cate let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel"><mark>Nouvelle Categorie</mark></h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form *ngIf="!submitted" class="was-validated" novalidate>
+      <div class="mb-3">
+          <label for="nom_categorie" class="form-label">Nom Categorie</label>
+          <input type="text" class="form-control" [(ngModel)]="categorieCrud.nom_categorie" id="nom_categorie"  name="nom_categorie" placeholder="Entrez categorie" aria-label="text example" required/>
+          <div class="invalid-feedback">Entrez le nom de l'categorie!</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Annuler</button>
+        <button type="button" class="btn btn-outline-success" (click)="saveCategorie()" [disabled]="!categorieCrud.nom_categorie"  (click)="modal.dismiss('Cross click')">Enregistrer</button>
+      </div>
+   </form>
+  </div>
+</ng-template>
+

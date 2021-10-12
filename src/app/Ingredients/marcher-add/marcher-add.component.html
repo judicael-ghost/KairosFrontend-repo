@@ -1,0 +1,54 @@
+<app-header></app-header>
+<div class="row">
+  <div class="col-2">
+    <app-stock-menu></app-stock-menu>
+  </div>
+  <div class="col-10">
+<div class="container-fluid">
+  <div class="element">
+<form *ngIf="!submitted" class="was-validated" novalidate>
+  <div class="card-body">
+      <div class="mb-3">
+      <label for="ingredient">Ingredient</label>
+      <select id="ingredient" [(ngModel)]="marcher.ingredient" name='ingredient' class="form-control" required aria-label="select example">
+        <option *ngFor='let ingredientss of ingredients' [ngValue]="ingredientss.id" >{{ ingredientss.nom_ingredient }}
+        </option>
+      </select>
+      <div class="invalid-feedback">Entrez un ingredient!</div>
+    </div>
+    <div class="mb-3">
+      <label for="lieu">Lieu</label>
+      <select id="lieu" [(ngModel)]="marcher.lieu" name='lieu' class="form-control" required aria-label="select example">
+        <option *ngFor='let lieuxx of lieux' [ngValue]="lieuxx.id" >{{ lieuxx.nom_lieu }}
+        </option>
+      </select>
+      <div class="invalid-feedback">Entrez un lieu!</div>
+    </div>
+    <div class="mb-3">
+      <label for="prix">Prix unitaire</label>
+        <select id="prix" [(ngModel)]="marcher.prix" name='unite' class="form-control" required aria-label="select example">
+        <option *ngFor='let prixx of prix' [ngValue]="prixx.id" >{{ prixx.prix_unitaire }}
+        </option>
+      </select>
+      <div class="invalid-feedback">Entrez un prix unitaire</div>
+    </div>
+  </div>
+  <div class="modal-footer">
+          <button (click)="saveMarcher()"  [disabled]="!marcher.ingredient || !marcher.lieu || !marcher.prix" class="btn btn-success">Enregistrer</button>
+  </div>
+</form>
+
+<div *ngIf="submitted">
+  <figure class="text-center">
+      <blockquote class="blockquote">
+        <p>Si vous vouliez en créer une nouvelle Tsena,Clic simplement sur le bouton <mark>Encore</mark></p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+         A chaque enregistrement<cite title="Source Title"> Vous verriez un message à droite de votre ecran</cite>
+      </figcaption>
+      <button class="btn btn-success" (click)="newMarcher()">Encore</button>
+  </figure>
+</div>
+  </div>
+</div>
+  </div>

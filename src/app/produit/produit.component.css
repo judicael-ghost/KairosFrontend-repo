@@ -1,0 +1,50 @@
+table {
+  width: 100%;
+}
+.grid-produits {
+  border: 1px solid silver;
+  padding-top: 10px;
+  border-radius: 5px;
+  margin-left: 45px;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 35%);
+}
+.grid-categorie {
+  border: 1px solid silver;
+  padding : 10px !important;
+  border-radius: 5px;
+  margin-left: 30px;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 35%);
+}
+.div-news{
+  margin-bottom: 16px;
+}
+
+.produit-input {
+  height: 20px !important;
+  font-size: 16px;
+}
+.form-categorie {
+  width: 100%;
+}
+
+.dash-produit {
+  margin-top: -10px !important;
+}
+.my-pagination /deep/ .ngx-pagination .current{
+  background: #A50134 !important;
+}
+.form-categoriee {
+  margin-top: px;
+}
+
+.produit-labele1{
+  margin-top: -5px !important;
+}
+.file-image{
+  margin-top: 10px !important;
+}
+::ng-deep .ngb-highlight {
+  color: #A50134 !important;
+}

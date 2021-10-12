@@ -1,0 +1,152 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <div class="elemente">
+    <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ligne">
+      <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 info-cli">
+          <div class="">
+            <label for="nom">Nom : </label>
+            <label class="info" name="nom"> &nbsp;{{ detailClient.nom }} </label>
+          </div>
+          <div class="">
+            <label for="prenom">Prénom(s) : </label>
+            <label class="info" name="prenom"> &nbsp;{{ detailClient.prenom }} </label>
+          </div>
+          <div class="">
+            <label for="adresse">Adresse : </label>
+            <label class="info" name="adresse"> &nbsp;{{ detailClient.adresse }} </label>
+          </div>
+          <div class="">
+            <label for="tel">Télephone : </label>
+            <label class="info" name="tel"> &nbsp;{{ detailClient.tel }} </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="col-lg-6 col-12 dash">
+            <!-- small box -->
+            <div class="small-box troixieme">
+              <div class="inner">
+                <h3>{{ bonusClient }}</h3>
+                <p>TOTAL DES POINTS</p>
+                <span><ngb-rating [rate]="bonusClient" [readonly]="true"></ngb-rating></span>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer"><i class=""></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-6 col-12 dash">
+            <!-- small box -->
+            <div class="small-box deuxieme">
+              <div class="inner">
+                <h3>{{ Totaldepense | number : '0.0-2' : 'fr' }} Ar</h3>
+
+                <p>Depenses effectuer</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="stat-liste">
+      <div class="stat">
+        <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="bar col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <ngx-charts-bar-vertical [results]="databar" [view]="bar"
+            [scheme]="" [legendPosition]=""  [maxXAxisTickLength]="16" [maxYAxisTickLength]="16"
+            [showXAxisLabel]="true" [showYAxisLabel]="true" [showGridLines]="true" [rotateXAxisTicks]="true"
+            [roundEdges]="true" [xAxis]="true" [yAxis]="true" [barPadding] = "8"
+            >
+
+            </ngx-charts-bar-vertical>
+          </div>
+          <div class="pie col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <ngx-charts-pie-chart [results]="datatest" [view]="pie" [doughnut]="false"
+            [labels]="true" [explodeSlices]="true"
+            >
+
+            </ngx-charts-pie-chart>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-12 gride-detail">
+        <div class="col-12">
+          <div class="row col-12">
+            <div class="col-3">
+              <div class="form-group">
+                <div class="input-group input-sm">
+                  <div class="input-group-append">
+                    <button class="btn btn-sm" disable type="button">RECHERCHE :</button>
+                  </div>
+                  <input id="recherche" class="form-control form-control-sm" placeholder="Tapez quelque chose" name="recherche" [formControl]="filter">
+                </div>
+              </div>
+            </div>
+            <div class="col-9 ">
+              <div class="float-right">
+                <select class="form-control form-control-sm" [(ngModel)]="nbItem" (pageChange)="page = $event">
+                  <option value="2">2 par page</option>
+                  <option value="5">5 par page</option>
+                  <option value="10">10 par page</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <table class="table table-sm table-hover col-12">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Catégorie</th>
+              <th>Produit</th>
+              <th>Prix</th>
+              <th>quantité</th>
+              <th>Net</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of client$ | async | paginate : {itemsPerPage : nbItem, currentPage : page, totalItems : totalLength}; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                <ngb-highlight [result]="c.categorie" [term]="filter.value"></ngb-highlight>
+              </td>
+              <td>
+                <ngb-highlight [result]="c.nomPro" [term]="filter.value"></ngb-highlight>
+              </td>
+              <td>
+                <ngb-highlight [result]="c.prix | number" [term]="filter.value"></ngb-highlight> Ar
+              </td>
+              <td>
+                <ngb-highlight [result]="c.quantite | number" [term]="filter.value"></ngb-highlight>
+              </td>
+              <td>
+                <ngb-highlight [result]="c.net | number" [term]="filter.value"></ngb-highlight> Ar
+              </td>
+              <td>
+                <ngb-highlight [result]="c.date" [term]="filter.value"></ngb-highlight>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="text-align: center;" *ngIf="searchResult == false">
+          Aucun élément
+        </div><br>
+        <div class="text-center">
+          <pagination-controls class="text-center my-pagination" previousLabel="Précedent" nextLabel="Suivant" (pageChange)="page = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

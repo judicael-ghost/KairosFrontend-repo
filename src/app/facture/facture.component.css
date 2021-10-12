@@ -1,0 +1,6 @@
+.my-pagination /deep/ .ngx-pagination .current{
+  background: #A50134 !important;
+}
+::ng-deep .ngb-highlight {
+  color: #A50134 !important;
+}

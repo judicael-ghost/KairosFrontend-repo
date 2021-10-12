@@ -1,0 +1,174 @@
+.produit-liste {
+  height: 10px !important;
+  margin-bottom: 0;
+}
+.toast-produit{
+  margin-top: 5px;
+}
+.nom-table {
+  border-bottom: solid 1px grey;
+}
+.list-commande {
+  overflow-y: auto !important;
+  max-height: 365px !important;
+}
+.panel-client {
+  width: 700px !important;
+  bottom:  80px !important;
+	position: fixed;
+	right: 30px;
+  border: whitesmoke solid 1px;
+  border-radius: 5px !important;
+  box-shadow: 0 1px 17px rgb(0 0 0 / 35%);
+  background-color: #f8f9fa !important;
+}
+.grid-client {
+	height: 410px !important;
+	background-color: #f8f9fa;
+}
+.footer-client {
+  height: 50px !important;
+  border-top: solid 1px grey !important;
+  background-color: #f8f9fa;
+}
+.client-input {
+  height: 20px !important;
+  font-size: 16px;
+}
+.champ {
+  background-color: transparent;
+  border-bottom: solid grey 2px !important;
+}
+.forma {
+  padding-left: 50px !important;
+}
+.nouveau {
+  margin-bottom: 2px !important;
+}
+.deja {
+  margin-bottom: 2px !important;
+  margin-top: -10px;
+}
+.ligne {
+  border-bottom: solid silver 1px;
+}
+.table-body {
+  overflow-y: auto !important;
+  height: 100px !important;
+}
+.trans {
+  background-color: transparent;
+}
+.btn-ignorer {
+  margin-top: 8px;
+  margin-right: 10px;
+  margin-left: 42%;
+}
+.btn-enregistrer {
+  margin-top: 8px;
+}
+.pagi-client {
+  margin-left: 30%;
+}
+.check {
+  cursor: pointer;
+}
+.check :hover {
+  color: #A50134 !important;
+}
+.btn-com {
+  border: #A50134 solid 2px;
+  color: #A50134;
+  font-weight: bold;
+}
+.btn-com:hover{
+  border: #A50134 solid 2px;
+  background-color: #A50134;
+  color: white
+}
+.print-list {
+  min-height: 200px;
+}
+.img-facture {
+  height: 100px !important;
+}
+.div-img {
+  width: 200px;
+}
+.print-produit {
+  padding: 4px;
+  padding-left: 30%;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  font-size: 25px !important;
+}
+.client-input {
+  height: 20px !important;
+  font-size: 16px;
+}
+.client-label {
+  padding: 0 !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-infix{
+  padding: 0 !important;
+}
+.my-pagination /deep/ .ngx-pagination .current{
+  background: #A50134 !important;
+}
+
+.notif-zone {
+  position: fixed;
+  right: 10px !important;
+  top : 70px !important;
+  z-index: 10000;
+}
+.notif-body {
+  background-color: #f8f9fa!important;
+  padding: 0 !important;
+}
+.notif-info {
+  margin-top: -10px !important;
+}
+.btn-valide {
+  border: #A50134 solid 2px;
+  color: white;
+  background-color: #A50134;
+  font-weight: bold;
+}
+.btn-valide:hover{
+  border: #660022 solid 2px;
+  background-color: #660022;
+}
+.form-clients {
+  padding-left: 90px;
+}
+.input-client{
+  margin-top: -12px;
+}
+.panele {
+  min-width: 500px;
+}
+.btn-valide {
+  border: #A50134 solid 2px;
+  color: white;
+  background-color: #A50134;
+  font-weight: bold;
+}
+.btn-valide:hover{
+  border: #660022 solid 2px;
+  background-color: #660022;
+  color: white;
+}
+.notif-body {
+  min-width: 300px !important;
+}
+::ng-deep .ngb-highlight {
+  color: #A50134 !important;
+}
+.form-control[readonly] {
+  background-color: white !important;
+  opacity: 1 !important;
+}
+
+
+

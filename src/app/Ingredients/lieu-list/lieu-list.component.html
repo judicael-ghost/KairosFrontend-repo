@@ -1,0 +1,60 @@
+<app-header></app-header>
+<div class="row">
+  <div class="col-2">
+    <app-stock-menu></app-stock-menu>
+  </div>
+  <div class="col-10">
+<div class="container-fluid">
+  <div class="element">
+<div class="">
+
+  <div class="table-responsive">
+    <div class="col-12">
+      <div class="row col-12">
+        <div class="col-5">
+          <button class="btn btn-cust btn-sm" routerLink="/addLieu"><i class="fa fa-plus-circle"></i> Nouveau lieu</button>
+        </div>
+        <div class="col-7">
+          <div class="float-right">
+            <select class="form-control form-control-sm" [(ngModel)]="nbItem"  (pageChange)="page = $event">
+              <option value="2">2 par page</option>
+              <option value="5">5 par page</option>
+              <option value="10">10 par page</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <table class="table table-sm table-hover caption-top">
+      <caption><h3>Liste des Lieux : {{lieux ? lieux.length : ''}}</h3></caption>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Lieu</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let lieu of lieux | paginate : {itemsPerPage : nbItem, currentPage : page, totalItems : totalLength}; let i = index">
+          <th>{{i+1}}</th>
+          <td>{{ lieu.nom_lieu }}</td>
+          <th><a routerLink="/lieux/{{ lieu.id }}" class="btn btn-info btn-sm">
+
+            <i class="fa fa-edit"> </i> Modifier
+          </a></th>
+        </tr>
+      </tbody>
+    </table>
+    <div style="text-align: center;" *ngIf="searchResult == false">
+      Aucun élément
+    </div>
+      <div class="text-center">
+        <pagination-controls class="text-center my-pagination" previousLabel="Précedent" nextLabel="Suivant"  (pageChange)="page = $event"></pagination-controls>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+  </div>
+

@@ -1,0 +1,202 @@
+<app-header></app-header>
+<div class="container-fluid">
+	<div class="row row-element">
+		<div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 side-navi">
+			<div class="side-nav-element">
+				<div class="categorie">
+					<h1 class="nom-cate"><i class="fa fa-bars"></i> <b> CATEGORIES</b></h1>
+				</div>
+				<div class="sidbar">
+					<ul *ngFor="let categories of categorie" class="nav flex-column">
+					    <li class="nav-item liste" (click)="getProduit(categories.id);active=categories.nomCate">
+					      <a [ngClass]="{'nav-link':true, 'lien':true, 'activa':active == categories.nomCate}"><h2 class="nom"><fa-icon [icon]="faConciergeBell"></fa-icon> <span class="nome">{{ categories.nomCate }}</span></h2></a>
+					    </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10" style="padding-right : 0;">
+			<div class="row element col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 body-element">
+
+				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 produit-liste" *ngFor="let produits of produit">
+					<div class="card card-produit">
+						<div class="row produit col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 imag" >
+								<img class="card-img-top img-produit" src={{produits.cover}} alt="Card image" style="width:100%">
+							</div>
+						    <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 body-produit">
+						      <h3 class="nom-produit" matBadge={{nbDispo[produits.id]}} matBadgeColor="warn" matBadgeSize="medium"><strong>{{ produits.nom }}</strong></h3>
+						      <p class="prix-unitaire">{{ produits.prix | number : '0.0-2' : 'fr'}} <strong> Ar</strong></p>
+						      <p class="quantite"><span (click)="moins(produits.id)" *ngIf="nbDispo[produits.id]"><i class="fa fa-angle-double-left fa-2x cheveron"></i></span> <input type="text" readonly class="nbQuantite form-control" [ngModel]="nbQuantite[produits.id]" name="nbQuantite" [disabled]="!nbDispo[produits.id]"/> <span (click)="plus(produits.id)" *ngIf="nbDispo[produits.id] > 0"><i class="fa fa-angle-double-right fa-2x cheveron"></i></span></p>
+						      <p class="btn-commander" [disabled]="nbDispo[produits.id] || nbQuantite[produits.id] > 0" (click)="getDisponibilite(produits.id , nbQuantite[produits.id]) ; ajoutpanier(produits.id , produits.nom , produits.prix , produits.categorie.nomCate , nbQuantite[produits.id] , idTable)" (click)="total(idTable)" ><button class="btn btn-com" [disabled]="!nbDispo[produits.id]">Commander</button></p>
+                </div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+  <div class="float">
+    <div *ngIf="!display" class="panel-panier" [@fadeannimation]="'in'">
+      <span aria-hidden="true" (click)="afficher()" class="close closee">&times;</span>
+      <div class="bon-titre">
+        <h3>Bon de Commande</h3>
+      </div>
+      <div class="grid">
+        <div class="col-12" *ngFor="let t of table">
+          <h4 class="text-center nom-table"> {{ t.nom }} </h4>
+          <div class="list-commande">
+            <div *ngFor="let p of panier[idTable]">
+              <ngb-toast *ngIf="show" [autohide]="false" (hidden)="show=false" class="toast-produit">
+                <span aria-hidden="true" class="close" (click)="retirerStock(p.id,idTable); retirer(idTable,p.id)">&times;</span>
+                <strong>Produit : </strong> <span> {{ p.categorie }}</span> - <span>{{ p.nom }}</span><br>
+                <strong>Prix : </strong><span> {{ p.prix | number : '0.0-2' : 'fr'}} * {{ p.quantite }} = {{ p.net | number : '0.0-2' : 'fr'}}</span> <strong> Ar</strong>
+              </ngb-toast>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bas col-12" >
+        <div class="col-12">
+          <h2 class="addition-panier">Total : <span style='font-family: "courier new", monospace !important;'>{{ totalAddition | number : '0.0-2' : 'fr'}} <strong> Ar</strong></span></h2>
+          <button class="btn btn-success btn-sm btn-block disable" (click)="validerCommande()">Valider</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!panelClient" class="panel-client" [@fadeannimation]="'in'">
+      <span aria-hidden="true" (click)="dispalyClient()" class="close closee">&times;</span>
+      <div class="bon-titre">
+        <h3>Information sur le client</h3>
+      </div>
+      <div class="grid-client col-12">
+        <div>
+          <pre class="text-center nouveau"><span class="ligne">Nouveau client</span></pre>
+        </div>
+          	<div class="form-clients col-12 row">
+              <div class="col-6">
+                <div class="">
+                  <form class="">
+                    <mat-form-field appearance="legacy" class="client-label">
+                      <span matPrefix><i class="fa fa-user fa-2x">&nbsp;&nbsp;</i></span>
+                      <mat-label class="client-label">Nom du Cient</mat-label>
+                      <input type="text" class="client-input" matInput name ="nom" [(ngModel)]="selectedClient.nom">
+                    </mat-form-field>
+                  </form>
+                </div>
+                <div class="input-client">
+                  <form class="">
+                    <mat-form-field appearance="legacy" class="client-label">
+                      <span matPrefix><i class="fa fa-user fa-2x">&nbsp;&nbsp;</i></span>
+                      <mat-label class="client-label">Prénom(s)</mat-label>
+                      <input type="text" class="client-input" matInput name ="adresse" [(ngModel)]="selectedClient.prenom">
+                    </mat-form-field>
+                  </form>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="">
+                  <form class="">
+                    <mat-form-field appearance="legacy" class="client-label">
+                      <span matPrefix><i class="fa fa-map-marker fa-2x">&nbsp;&nbsp;</i></span>
+                      <mat-label class="client-label">Adresse</mat-label>
+                      <input type="text" class="client-input" matInput name ="adresse" [(ngModel)]="selectedClient.adresse">
+                    </mat-form-field>
+                  </form>
+                </div>
+                <div class="input-client">
+                  <form class="">
+                    <mat-form-field appearance="legacy" class="client-label">
+                      <span matPrefix><i class="fa fa-phone fa-2x">&nbsp;&nbsp;</i></span>
+                      <mat-label class="client-label">Téléphone</mat-label>
+                      <input type="text" class="client-input" matInput name ="tel" [(ngModel)]="selectedClient.tel">
+                    </mat-form-field>
+                  </form>
+                </div>
+              </div>
+            </div>
+        <div class="liste-clients">
+          <div>
+            <pre class="text-center deja"><span class="ligne">Déja un client</span></pre>
+          </div>
+          <div class="">
+            <div class="col-5">
+              <div class="form-group">
+                <div class="input-group input-sm">
+                  <div class="input-group-append">
+                    <button class="btn btn-sm" disable type="button">RECHERCHE :</button>
+                  </div>
+                  <input id="recherche" [formControl]="filter" class="form-control form-control-sm trans" placeholder="Tapez quelque chose" name="recherche">
+                </div>
+              </div>
+            </div>
+          </div>
+            <table class="table table-hover table-sm" style="overflow-y: auto !important;max-height: 30px !important;margin-top: -10px;">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Prénom(s)</th>
+                <th>Adresse</th>
+                <th>Tel</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let c of client$ | async | paginate : {itemsPerPage : nbItem, currentPage : page, totalItems : totalLength}; index as i">
+                <th>{{ i+1 }}</th>
+                <td>
+                  <ngb-highlight [result]="c.nom" [term]="filter.value"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="c.prenom" [term]="filter.value"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="c.adresse" [term]="filter.value"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="c.tel" [term]="filter.value"></ngb-highlight>
+                </td>
+                <td>
+                  <i class="fa fa-chevron-circle-right check" (click)="onCheck(c.id)"></i>
+                </td>
+              </tr>
+            </tbody>
+
+            </table>
+            <div style="text-align: center;" *ngIf="searchResult == false">
+              Aucun élément ne correspond à votre recherche
+            </div>
+            <div class="">
+              <div class="">
+                <pagination-controls previousLabel="Précedent" nextLabel="Suivant" class="text-center my-pagination" (pageChange)="page = $event"></pagination-controls>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="footer-client col-12">
+          <div class="row col-12">
+            <div class="btn-ignorer">
+              <button class="btn btn-outline-danger btn-sm" (click)="dispalyClient()">Ignorer</button>
+            </div>
+            <div class="btn-enregistrer">
+              <button class="btn btn-outline-success btn-sm" (click)="validerClient()">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="example-container">
+
+      </div>
+
+
+    </div>
+    <div class="bulle">
+      <div class="bulle-panier" (click)="afficher()">
+      <span><i class="fa fa-shopping-basket fa-2x" matBadge={{nbCommande}} matBadgeColor="warn" matBadgeSize="medium"></i></span>
+      </div>
+    </div>
+
+  </div>
+

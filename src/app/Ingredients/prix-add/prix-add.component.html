@@ -1,0 +1,44 @@
+<app-header></app-header>
+<div class="row">
+  <div class="col-2">
+    <app-stock-menu></app-stock-menu>
+  </div>
+  <div class="col-10">
+<div class="container-fluid">
+  <div class="element">
+<form *ngIf="!submitted" class="was-validated" novalidate>
+  <div class="card-body">
+      <div class="mb-3">
+      <label for="prix_unitaire">Prix</label>
+        <input
+          type="number"
+          class="form-control"
+          id="prix_unitaire"
+          class="form-control"
+          [(ngModel)]="prix.prix_unitaire"
+          name="prix_unitaire" placeholder="Entrez Prix"
+          aria-label="text example" required
+        />
+        <div class="invalid-feedback">Entrez le nom de prix!</div>
+    </div>
+  </div>
+  <div class="modal-footer">
+          <button (click)="savePrix()" [disabled]="!prix.prix_unitaire" class="btn btn-success">Enregistrer</button>
+  </div>
+</form>
+
+<div *ngIf="submitted">
+  <figure class="text-center">
+      <blockquote class="blockquote">
+        <p>Si vous vouliez en créer une nouvelle Prix,Clic simplement sur le bouton <mark>Encore</mark></p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+         A chaque enregistrement<cite title="Source Title"> Vous verriez un message à droite de votre ecran</cite>
+      </figcaption>
+      <button class="btn btn-success" (click)="newPrix()">Encore</button>
+  </figure>
+</div>
+  </div>
+</div>
+</div>
+

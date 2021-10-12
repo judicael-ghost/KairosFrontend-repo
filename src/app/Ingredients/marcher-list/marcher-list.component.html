@@ -1,0 +1,71 @@
+<app-header></app-header>
+<div class="row">
+  <div class="col-2">
+    <app-stock-menu></app-stock-menu>
+  </div>
+  <div class="col-10">
+<div class="container-fluid">
+  <div class="element">
+<div class="">
+  <div class="table-responsive-xxl" id="htmlData">
+    <div class="col-12">
+      <div class="row col-12">
+        <div class="col-8">
+          <div class="col-12 row">
+            <div class="col-6">
+              <button type="button" class="btn btn-cust btn-sm" routerLink="/addMarche"><i class="fa fa-plus-circle"></i> Nouveau marché</button>
+            </div>
+            <div class="col-6">
+              <!-- <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="float-right">
+            <select class="form-control form-control-sm" name="page" [(ngModel)]="nbItem" (pageChange)="page = $event">
+              <option value="2">2 par page</option>
+              <option value="5">5 par page</option>
+              <option value="10">10 par page</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div><br>
+    <table class="table table-sm table-hover caption-top">
+      <caption><h3>Liste des Tsena</h3></caption>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Ingredient</th>
+          <th>Description</th>
+          <th>Prix</th>
+          <th>Unite</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let marcher of marchers | paginate : {itemsPerPage : nbItem, currentPage : page, totalItems : totalLength};  let i = index">
+          <td>{{i+1}}</td>
+          <td>{{ marcher.nom_ingredient }}</td>
+          <td >
+              <ul *ngFor="let item of marcher.ingredient_marchers">
+                <li><a routerLink="/marchers/{{ item.id }}">{{ item.lieu.nom_lieu }}</a></li>
+              </ul>
+          </td>
+          <td >
+            <ul *ngFor="let item of marcher.ingredient_marchers">
+              <li>{{ item.prix.prix_unitaire }}</li>
+            </ul>
+        </td>
+        <td >{{ marcher.unite.nom_unite }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="text-align: center;" *ngIf="searchResult == false">
+      Aucun élément
+    </div>
+      <div class="text-center">
+        <pagination-controls #myPaginator class="text-center my-pagination" previousLabel="Précedent" nextLabel="Suivant" responsive="true" (pageChange)="page = $event;"></pagination-controls>
+      </div>
+    </div>
+    </div>
+  </div></div></div>

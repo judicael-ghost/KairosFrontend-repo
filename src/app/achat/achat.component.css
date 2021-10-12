@@ -1,0 +1,24 @@
+.elementess {
+  margin-top: 55px !important;
+}
+
+.dash-produit {
+  margin-top: -10px !important;
+}
+
+.my-pagination /deep/ .ngx-pagination .current{
+  background: #A50134 !important;
+}
+::ng-deep .ngb-highlight {
+  color: #A50134 !important;
+}
+.client-gride{
+  border: 1px solid silver;
+  padding-top: 10px;
+  border-radius: 5px;
+  margin-top: -5px !important;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 35%);
+}
+
+.custom-day { text-align: center; padding: 0.185rem 0.25rem; display: inline-block; height: 2rem; width: 2rem; } .custom-day.focused { background-color: #e6e6e6; } .custom-day.range, .custom-day:hover { background-color: rgb(2, 117, 216); color: white; } .custom-day.faded { background-color: rgba(2, 117, 216, 0.5); }

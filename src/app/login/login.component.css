@@ -1,0 +1,172 @@
+@font-face {
+  font-family: Poppins-Regular;
+  src: url('fonts/poppins/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: Poppins-Bold;
+  src: url('fonts/poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+  font-family: Poppins-SemiBold;
+  src: url('fonts/poppins/Poppins-SemiBold.ttf');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.login {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(fonts/images/fonts.png);
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+}
+
+
+.loginContent {
+  width: 350px;
+  height: 550px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(165, 0, 53, 0.2), 0 6px 20px 0 rgba(165, 0, 53, 0.19);
+  position: relative;
+  margin: 4% auto;
+  background: #fff;
+  padding: 5px;
+}
+
+.image {
+  width: 180px;
+  height: 100px;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 0qpx;
+}
+.texte {
+  color:  #000;
+  font-family: Poppins-Bold;
+  margin-left: 50px;
+  font-size: 0.9em;
+  text-align: left;
+
+}
+
+.form {
+  top: 200px;
+  position: absolute;
+  width: 250px;
+  transition: 0.5s;
+  left: 50px;
+
+}
+
+.group-input {
+  margin-top: 35px;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 5px 0;
+  margin: 3px 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 2px solid rgb(165, 0, 52);
+  outline: none;
+  background:  transparent;
+}
+input:focus~label, input:valid~label {
+  top: -22px;
+  font-size: 12px;
+}
+
+.error {
+  text-align: center;
+  margin-top: 5px;
+  position: relative;
+}
+
+.errorText{
+  color: red;
+  text-align: center;
+  font-size: 0.8em;;
+}
+
+.group-check {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+
+.formcheck {
+  margin: 30px 10px 30px 0;
+}
+
+label {
+  font-family: Poppins-Regular ;
+  background-color: transparent;
+  font-size: 12px;
+  color: #888;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 2px;
+  cursor: text;
+  transition: 0.2s;
+}
+i {
+  margin-right: 10px;
+}
+
+.cacher {
+  color: #777;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+  bottom: 20px;
+}
+
+.btn {
+  width: 85%;
+  height: 48px;
+  padding: 10px 30px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background: #a50135;
+  background: linear-gradient(to right, #ff105f, #ffad06);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 17px;
+  font-family: Poppins-Medium;
+  letter-spacing: 3px;
+  transition: all 0.2s;
+
+}
+
+.btn:hover {
+  width: 86%;
+  height: 49px;
+  padding: 10px 30px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background: linear-gradient(to left, #ff105f, #ffad06);
+  background: #a50135;
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 17px;
+  font-family: Poppins-Medium;
+  letter-spacing: 3px;
+  transition:all 0.2s;
+}

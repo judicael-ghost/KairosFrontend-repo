@@ -1,0 +1,35 @@
+.lera {
+  font-size: 3rem;
+  margin-bottom: 7px !important;
+  color: #A50134;
+}
+.daty {
+  font-size: 1rem;
+}
+.vola{
+  font-size: 2rem;
+  border-bottom: solid 1px grey;
+}
+.notif-zone {
+  position: fixed;
+  right: 10px !important;
+  top : 70px !important;
+  z-index: 10000;
+}
+.notif-body {
+  background-color: #f8f9fa!important;
+  padding: 0 !important;
+}
+.notif-info {
+  margin-top: -10px !important;
+}
+.btn-valide {
+  border: #A50134 solid 2px;
+  color: white;
+  background-color: #A50134;
+  font-weight: bold;
+}
+.btn-valide:hover{
+  border: #660022 solid 2px;
+  background-color: #660022;
+}

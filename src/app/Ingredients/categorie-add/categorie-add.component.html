@@ -1,0 +1,31 @@
+<app-header></app-header>
+<div class="row">
+  <div class="col-2">
+    <app-stock-menu></app-stock-menu>
+  </div>
+  <div class="col-10">
+<div class="container-fluid">
+  <div class="element">
+<form *ngIf="!submitted" class="was-validated" novalidate>
+  <div class="mb-3">
+      <label for="nom_categorie" class="form-label">Nom Categorie</label>
+      <input type="text" class="form-control" id="nom_categorie" [(ngModel)]="categorie.nom_categorie" name="nom_categorie" placeholder="Entrez categorie" aria-label="text example" required/>
+      <div class="invalid-feedback">Entrez le nom de l'categorie!</div>
+  </div>
+  <div class="modal-footer">
+      <button (click)="saveCategorie()" [disabled]="!categorie.nom_categorie" class="btn btn-success">Enregistrer</button>
+  </div>
+</form>
+<div *ngIf="submitted">
+  <figure class="text-center">
+      <blockquote class="blockquote">
+        <p>Si vous vouliez en créer une nouvelle categorie,Clic simplement sur le bouton <mark>Encore</mark></p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+         A chaque enregistrement<cite title="Source Title"> Vous verriez un message à droite de votre ecran</cite>
+      </figcaption>
+      <button class="btn btn-success" (click)="newCategorie()">Encore</button>
+    </figure>
+
+</div>
+  </div></div></div>

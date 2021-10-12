@@ -1,0 +1,361 @@
+<app-header></app-header>
+<div class="container-fluid">
+	<div class="elementes">
+    <div class="col-12 row dash-parametre">
+      <div class="col-lg-3 col-6 dash">
+        <!-- small box -->
+        <div class="small-box premier">
+          <div class="inner">
+            <h3>{{ nbTable }}</h3>
+
+            <p>Nombre des tables</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+          <a class="small-box-footer"></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6 dash">
+        <!-- small box -->
+        <div class="small-box troixieme">
+          <div class="inner">
+            <h3>{{ nbRegle }}</h3>
+
+            <p>Nombre des règles</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+          <a class="small-box-footer"></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6 dash">
+        <!-- small box -->
+        <div class="small-box deuxieme">
+          <div class="inner">
+            <h3>{{ nbUser }}</h3>
+
+            <p>Nombre des utilisateurs</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+          <a class="small-box-footer"></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6 dash">
+        <!-- small box -->
+        <div class="small-box quatrieme">
+          <div class="inner">
+            <h4><b>{{user.first_name}} <br>{{ user.last_name }}</b></h4>
+
+            <p>Utilisateur Connecter</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+          </div>
+          <a class="small-box-footer"></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 row">
+      <div class="col-2 table-gride">
+        <div class="col-10 float-right div-news">
+          <button type="button" class="btn btn-sm btn-cust" (click)="open(modalTable)" (click)="onAnnuler()"><i class="fa fa-plus-circle"></i> Nouvelle table</button>
+        </div>
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr class="text-center">
+              <th> Nom </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center" *ngFor="let t of tableList">
+              <td> {{ t.nom }} </td>
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <span><i id="dropdownBasic1" ngbDropdownToggle class="drop">Option</i></span>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="deleteTable(t.id)" >Supprimer</button>
+                    <button ngbDropdownItem (click)="onClickedTable(t.id)" (click)="open(modalTable)">Modifier</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #modalTable let-modal>
+          <div class="modal-header">
+            <h2 class="modal-title ml-auto" id="modal-basic-title">Nouvelle table</h2>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="onAnnuler()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="form-categorie">
+              <mat-form-field appearance="legacy" class="produit-label">
+                <span matPrefix><i class="fa fa-bars fa-2x">&nbsp;&nbsp;</i></span>
+                <mat-label class="produit-label">Nom du table</mat-label>
+                <input type="text" class="produit-input" matInput name ="nom" [(ngModel)]="tableClicked.nom">
+              </mat-form-field>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-5">
+                <button type="button"  class="btn btn-outline-danger" (click)="modal.dismiss('Cross click')" (click)="onAnnulerTable()">Annuler</button>
+              </div>
+              <div class="col-5">
+                <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')" (click)="onEnregistrerTable()">Enregistrer</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-5 bonus-grid">
+        <div class="col-12 div-news">
+          <button type="button" class="btn btn-regle btn-cust btn-sm mx-auto" (click)="onAnnuler()" (click)="open(modalCate)"><i class="fa fa-plus-circle"></i> Nouvelle règle</button>
+        </div>
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr class="text-center">
+              <th>Point</th>
+              <th>Min</th>
+              <th>Max</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center" *ngFor="let b of bonusList">
+              <td>{{ b.point }}</td>
+              <td>{{ b.min | number : '0.0-2' : 'fr'}} Ar</td>
+              <td>{{ b.max | number : '0.0-2' : 'fr'}} Ar</td>
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <span><i id="dropdownBasic1" ngbDropdownToggle class="drop">Option</i></span>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="deleteBonus(b.id)" >Supprimer</button>
+                    <button ngbDropdownItem (click)="onClickedBonus(b.id)" (click)="open(modalCate)">Modifier</button>
+                  </div>
+                </div>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #modalCate let-modal>
+          <div class="modal-header">
+            <h2 class="modal-title ml-auto" id="modal-basic-title">Parametre intervalle</h2>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="onAnnuler()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="col-12">
+              <div class="col-6">
+                <form class="form-categorie">
+                  <mat-form-field appearance="legacy" class="produit-label">
+                    <span matPrefix><i class="fa fa-hashtag fa-2x">&nbsp;&nbsp;</i></span>
+                    <mat-label class="produit-label">Nombre point</mat-label>
+                    <input type="text" class="produit-input" matInput name ="point" [(ngModel)]="bonusClicked.point">
+                  </mat-form-field>
+                </form>
+              </div>
+              <div class="row col-12">
+                <div class="col-6">
+                  <form class="form-categorie">
+                    <mat-form-field appearance="legacy" class="produit-label">
+                      <span matPrefix><i class="fa fa-plus-circle fa-2x">&nbsp;&nbsp;</i></span>
+                      <mat-label class="produit-label">Minimum</mat-label>
+                      <input type="text" class="produit-input" matInput name ="point" [(ngModel)]="bonusClicked.min">
+                    </mat-form-field>
+                  </form>
+                </div>
+                <div class="col-6">
+                  <form class="form-categorie">
+                    <mat-form-field appearance="legacy" class="produit-label">
+                      <span matPrefix><i class="fa fa-plus-circle fa-2x">&nbsp;&nbsp;</i></span>
+                      <mat-label class="produit-label">Maximum</mat-label>
+                      <input type="text" class="produit-input" matInput name ="point" [(ngModel)]="bonusClicked.max">
+                    </mat-form-field>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-5">
+                <button type="button"  class="btn btn-outline-danger" (click)="modal.dismiss('Cross click')" (click)="onAnnuler()">Annuler</button>
+              </div>
+              <div class="col-5">
+                <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')" (click)="onEnregistrer()">Enregistrer</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      <ng-template #modalUtilisateur let-modal>
+        <div class="modal-header">
+          <h2 class="modal-title ml-auto mTitre" id="modal-basic-title">Créer un compte d'utilisateur</h2>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="videUser()">
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <form class="form-categorie">
+            <div class="image ml-auto mr-auto text-center">
+              <img alt="image" src="../assets/img/avatar.png" class="avatare" width="160" height="160">
+            </div>
+            <br>
+            <div class="text-center">
+              <input type="file" class="form-control form-control-sm file-image" name="image" (change)="onImageChanged($event)"/>
+            </div>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Type*</mat-label>
+              <select name ="type" matNativeControl [(ngModel)]="profile.type">
+                <option value="Administrateur">Administrateur</option>
+                <option value="Caissier">Caissier</option>
+              </select>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Pseudo*</mat-label>
+              <input type="text" class="produit-input" matInput name ="pseudo" [(ngModel)]="utilisateurs.username">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Nom</mat-label>
+              <input type="text" class="produit-input" matInput name ="nom" [(ngModel)]="utilisateurs.first_name">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Prénom</mat-label>
+              <input type="text" class="produit-input" matInput name ="prenom" [(ngModel)]="utilisateurs.last_name">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Email*</mat-label>
+              <input type="email" class="produit-input" matInput name ="email" [(ngModel)]="utilisateurs.email">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Mot de passe*</mat-label>
+              <input type="password" class="produit-input" matInput name ="password">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Confirmer le mot de passe</mat-label>
+              <input type="password" class="produit-input" matInput name ="password" [(ngModel)]="utilisateurs.password">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Téléphone</mat-label>
+              <input type="text" class="produit-input" matInput name ="telephone" [(ngModel)]="profile.telephone">
+            </mat-form-field>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-5">
+              <button type="button"  class="btn btn-outline-danger" (click)="modal.dismiss('Cross click')" (click)="videUser()">Annuler</button>
+            </div>
+            <div class="col-5">
+              <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')" (click)="ajoutUtilisateur()">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+
+    <ng-template #modalModiffieU let-modal>
+        <div class="modal-header">
+          <h2 class="modal-title ml-auto mTitre" id="modal-basic-title">Profile de l'utilisateur</h2>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="videUser()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <form class="form-categorie">
+            <div class="image ml-auto mr-auto">
+              <img alt="image" src={{profile.image}} class="avatare"  width="160" height="160">
+            </div>
+            <br>
+            <div class="form-group">
+              <input type="file" class="form-control form-control-sm file-image" name="image" (change)="onImageChanged($event)"/>
+            </div>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Pseudo</mat-label>
+              <input type="text" class="produit-input" matInput name ="pseudo" [(ngModel)]="utilisateurs.username">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Nom</mat-label>
+              <input type="text" class="produit-input" matInput name ="nom" [(ngModel)]="utilisateurs.first_name">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Prénom</mat-label>
+              <input type="text" class="produit-input" matInput name ="prenom" [(ngModel)]="utilisateurs.last_name">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Email</mat-label>
+              <input type="text" class="produit-input" matInput name ="email" [(ngModel)]="utilisateurs.email">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy" class="produit-label">
+              <mat-label class="produit-label">Téléphone</mat-label>
+              <input type="text" class="produit-input" matInput name ="telephone" [(ngModel)]="profile.telephone">
+            </mat-form-field>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-5">
+              <button type="button"  class="btn btn-outline-danger" (click)="modal.dismiss('Cross click')" (click)="videUser()">Annuler</button>
+            </div>
+            <div class="col-5">
+              <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')" (click)="updateUser()">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <div class="col-4 user-gride">
+        <div class="col-12 div-news">
+          <button type="button" class="btn btn-user btn-cust btn-sm " (click)="open(modalUtilisateur)" (click)="onAnnuler()"><i class="fa fa-plus-circle"></i> Nouvelle utilisateur</button>
+        </div>
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr class="text-center">
+              <th> Pseudo </th>
+              <th> Nom </th>
+              <th> Prénom </th>
+              <th> option </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center" *ngFor="let utilisateurs of utilisateur">
+              <td>{{ utilisateurs.username }} </td>
+              <td>{{ utilisateurs.first_name }}</td>
+              <td>{{ utilisateurs.last_name }}</td>
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <span><i id="dropdownBasic1" ngbDropdownToggle class="drop">Option</i></span>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="deleteUser(utilisateurs.id)" >Supprimer</button>
+                    <button ngbDropdownItem (click)="editUser(utilisateurs.id)" (click)="open(modalModiffieU)">Profile</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
