@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import Commande from '../modele/commande.model';
 
@@ -9,7 +8,8 @@ import Commande from '../modele/commande.model';
   providedIn: 'root'
 })
 export class TableService {
-  baseurl = environment.baseurl;
+  baseurl: "http://127.0.0.1:8000"
+  baseUrl: "http://localhost:8000/"
   httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
   private dbPath = 'admin';

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParametreService {
 
-  baseurl = environment.baseurl;
+  baseurl: "http://127.0.0.1:8000"
+  baseUrl: "http://localhost:8000/"
   httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
-  UTILISATEUR_URL = environment.baseUrl+"utilisateur/liste/";
-  PROFILE_URL = environment.baseUrl+"utilisateur/profile/";
+  UTILISATEUR_URL = "http://localhost:8000/"+"utilisateur/liste/";
+  PROFILE_URL = "http://localhost:8000/"+"utilisateur/profile/";
   constructor(private http: HttpClient) { }
 
   getBonus(): Observable<any>{

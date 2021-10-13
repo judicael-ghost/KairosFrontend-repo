@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { TableService } from '../table/table.service';
 import { ParametreService } from './parametre.service';
 import { faGreaterThanEqual } from '@fortawesome/free-solid-svg-icons';
-import { environment } from 'src/environments/environment';
 import { LoginService } from '../service/login.service';
 
 @Component({
@@ -36,7 +35,7 @@ export class ParametreComponent implements OnInit {
   edit = '';
   isProfile = false;
 
-  PROFILE_URL = environment.baseUrl+"utilisateur/profile/"
+  PROFILE_URL = "http://localhost:8000/"+"utilisateur/profile/"
   utilisateur = [{username: '', first_name: '', last_name: '', email: '', password: '', profile: {id:'', accounts: '', type: '', telephone: '', image: '' }}]
   utilisateurs: any;
   profile: any;

@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { environment } from "src/environments/environment";
 
 
 const httpOptions = {
@@ -16,9 +15,12 @@ const httpOptions = {
 })
 export class LoginService {
 
-    LOGIN_URL = environment.baseUrl + 'api/login/';
-    LOGOUT_URL = environment.baseUrl + 'api/logout/';
-    UTULISATEUR_URL = environment.baseUrl + 'utilisateur/';
+  baseurl: "http://127.0.0.1:8000"
+  baseUrl: "http://localhost:8000/"
+
+    LOGIN_URL = "http://localhost:8000/" + 'api/login/';
+    LOGOUT_URL = "http://localhost:8000/" + 'api/logout/';
+    UTULISATEUR_URL = "http://localhost:8000/" + 'utilisateur/';
 
     constructor(private httpclient: HttpClient, private router: Router){}
 

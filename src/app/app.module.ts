@@ -184,7 +184,7 @@ registerLocaleData(localFr)
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireMessagingModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule,
 
     ToastrModule.forRoot(
       /* {
