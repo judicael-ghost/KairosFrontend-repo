@@ -3,10 +3,10 @@ const path = require("path");
 
 const app = express();
 
-app.use(express.static(__dirname+'/dist/kairosfrontend'));
+app.use(express.static(__dirname));
 
 app.get('/*', function(req,res){
-  res.sendFile(path.join(__dirname+'/dist/kairosfrontend/index.html'));
+  res.sendFile(path.join(__dirname, './public', 'index.html'));
 })
 
 app.listen(process.env.PORT)
