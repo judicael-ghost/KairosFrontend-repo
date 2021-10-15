@@ -181,10 +181,10 @@ registerLocaleData(localFr)
     NgxPrintModule,
     ReactiveFormsModule,
 
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    AngularFireMessagingModule,
-    AngularFireModule,
+    // AngularFireDatabaseModule,
+    // AngularFireAuthModule,
+    // AngularFireMessagingModule,
+    // AngularFireModule,
 
     ToastrModule.forRoot(
       /* {

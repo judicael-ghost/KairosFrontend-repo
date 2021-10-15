@@ -85,27 +85,27 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  refreshList(): void {
-    this.currentCommande = undefined;
-    this.currentIndex = -1;
-    this.retrieveCommande();
-  }
+  // refreshList(): void {
+  //   this.currentCommande = undefined;
+  //   this.currentIndex = -1;
+  //   this.retrieveCommande();
+  // }
 
-  retrieveCommande(): void {
-    this.api.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-      this.commande = data;
-      this.nbCommande = data.length;
-      if(this.nbCommande == 0 || this.nbCommande == null){
-        this.displayLigne = true;
-      }
-    });
-  }
+  // retrieveCommande(): void {
+  //   this.api.getAll().snapshotChanges().pipe(
+  //     map(changes =>
+  //       changes.map(c =>
+  //         ({ id: c.payload.doc.id, ...c.payload.doc.data() })
+  //       )
+  //     )
+  //   ).subscribe(data => {
+  //     this.commande = data;
+  //     this.nbCommande = data.length;
+  //     if(this.nbCommande == 0 || this.nbCommande == null){
+  //       this.displayLigne = true;
+  //     }
+  //   });
+  // }
 
   setActiveCommande(com: Commande, index: number): void {
     this.currentCommande = com;
