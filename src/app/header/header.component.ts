@@ -61,7 +61,7 @@ export class HeaderComponent implements OnInit {
     this.apiLogin.getUtilisateur().subscribe(
       data =>{
         this.user = data;
-        if(this.user.profile.type == 'caissier'){
+        if(this.user.profile.type == 'Caissier' || this.user.profile.type == 'caissier'){
           this.api.userType = false;
         } else {
           this.api.userType = true;

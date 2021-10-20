@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
           result => {
             console.log(result)
             if(result.profile.type === 'Caissier'){
-                this.router.navigate(['table']);
+                this.router.navigate(['commande/1']);
                 this.apiHead.userType = false;
                 console.log(result)
             }

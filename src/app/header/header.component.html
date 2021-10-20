@@ -1,7 +1,7 @@
 <div>
   <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top navi">
     <a class="navbar-brand ml-50 logo" *ngIf="api.userType == true" [routerLink]="['/accueil']"><img src="assets/img/kairos.png" class="logo-img"></a>
-    <a class="navbar-brand ml-50 logo" *ngIf="api.userType == false" [routerLink]="['/table']"><img src="assets/img/kairos.png" class="logo-img"></a>
+    <a class="navbar-brand ml-50 logo" *ngIf="api.userType == false" [routerLink]="['/commande/1']"><img src="assets/img/kairos.png" class="logo-img"></a>
     <ul class="navbar-nav ml-auto item">
       <li class="nav-item" *ngIf="api.userType == true">
         <a class="nav-link linke"><span class="link-title" routerLinkActive='link-activa' [routerLink]="['/achat']">Commande</span></a>

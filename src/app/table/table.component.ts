@@ -3,7 +3,6 @@ import { TableService } from './table.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {panier} from '../data';
 import { ClientService } from '../client/client.service';
-import { MessagingService } from '../service/messaging.service';
 import Commande from 'src/app/modele/commande.model';
 import { map } from 'rxjs/operators';
 import { LoginService } from '../service/login.service';
@@ -41,7 +40,7 @@ export class TableComponent implements OnInit {
           }
   url = 'http://localhost:8000'
 
-  constructor(private apiLog:LoginService ,private messagingService: MessagingService ,private api: TableService,private modalService: NgbModal , private apiCli: ClientService) {
+  constructor(private apiLog:LoginService ,private api: TableService,private modalService: NgbModal , private apiCli: ClientService) {
     this.getTable();
     this.horloge();
     this.today = new Date().toLocaleDateString();

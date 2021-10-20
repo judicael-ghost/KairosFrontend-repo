@@ -8,16 +8,16 @@ import Commande from '../modele/commande.model';
   providedIn: 'root'
 })
 export class TableService {
-  baseurl: "http://127.0.0.1:8000"
-  baseUrl: "http://localhost:8000/"
+  baseurl = 'http://127.0.0.1:8000'
+  baseUrl = "http://localhost:8000/"
   httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
   private dbPath = 'admin';
 
   commandeRef: AngularFirestoreCollection<Commande>;
 
-  constructor(private http: HttpClient , private db: AngularFirestore) {
-    this.commandeRef = db.collection(this.dbPath);
+  constructor(private http: HttpClient) {
+    // this.commandeRef = db.collection(this.dbPath);
   }
 
   getAll(): AngularFirestoreCollection<Commande> {

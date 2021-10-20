@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class ParametreService {
 
-  baseurl: "http://127.0.0.1:8000"
-  baseUrl: "http://localhost:8000/"
+  baseurl = 'http://127.0.0.1:8000'
+  baseUrl = "http://localhost:8000/"
   httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
   UTILISATEUR_URL = "http://localhost:8000/"+"utilisateur/liste/";
   PROFILE_URL = "http://localhost:8000/"+"utilisateur/profile/";

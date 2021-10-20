@@ -9,8 +9,8 @@ import { CommandeService } from '../commande/commande.service';
   providedIn: 'root'
 })
 export class ClientService {
-  baseurl: "http://127.0.0.1:8000"
-  baseUrl: "http://localhost:8000/"
+  baseurl = 'http://127.0.0.1:8000'
+  baseUrl = "http://localhost:8000/"
   httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
   constructor(private http: HttpClient , private api: CommandeService) { }

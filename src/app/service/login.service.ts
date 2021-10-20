@@ -15,8 +15,8 @@ const httpOptions = {
 })
 export class LoginService {
 
-  baseurl: "http://127.0.0.1:8000"
-  baseUrl: "http://localhost:8000/"
+  baseurl = 'http://127.0.0.1:8000'
+  baseUrl = "http://localhost:8000/"
 
     LOGIN_URL = "http://localhost:8000/" + 'api/login/';
     LOGOUT_URL = "http://localhost:8000/" + 'api/logout/';

@@ -38,8 +38,8 @@ export class ProduitComponent implements OnInit {
   prix : string;
   cover : File;
   imgPath = "http://localhost:4200/assets/img/misao.jpg";
-  baseurl: "http://127.0.0.1:8000"
-  baseUrl: "http://localhost:8000/"
+  baseurl = 'http://127.0.0.1:8000'
+  baseUrl = "http://localhost:8000/"
   searchResult: boolean = true;
 
   produit$ : Observable<ProduitFace[]>;

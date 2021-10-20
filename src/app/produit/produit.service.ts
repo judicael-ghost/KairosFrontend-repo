@@ -7,39 +7,39 @@ import { Observable } from 'rxjs';
 })
 export class ProduitService {
 
-  baseurl: "http://127.0.0.1:8000"
-  baseUrl: "http://localhost:8000/"
+  baseurl = 'http://127.0.0.1:8000'
+  baseUrl = "http://localhost:8000/"
   httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
   constructor(private http: HttpClient) { }
 
   getAllCommande(): Observable<any>{
-    return this.http.get(this.baseurl+ '/commandes/',
+    return this.http.get(this.baseurl+'/commandes/',
     {headers : this.httpHeaders});
   }
 
   CommandeClient(): Observable<any>{
-    return this.http.get(this.baseurl+ '/commandesClient/',
+    return this.http.get(this.baseurl+'/commandesClient/',
     {headers : this.httpHeaders});
   }
 
   getProduit(): Observable<any>{
-    return this.http.get(this.baseurl+ '/ajoutproduits/',
+    return this.http.get(this.baseurl+'/ajoutproduits/',
     {headers : this.httpHeaders});
   }
 
   deleteProduit(id:any): Observable<any>{
-    return this.http.delete(this.baseurl+ '/produits/' + id +'/',
+    return this.http.delete(this.baseurl+'/produits/' + id +'/',
     {headers : this.httpHeaders});
   }
 
   deleteProduitCate(cate:any): Observable<any>{
-    return this.http.get(this.baseurl+ '/supprProduit/'+cate,
+    return this.http.get(this.baseurl+'/supprProduit/'+cate,
     {headers : this.httpHeaders});
   }
 
   getOneProduit(id:any): Observable<any>{
-    return this.http.get(this.baseurl+ '/ajoutproduits/' + id +'/',
+    return this.http.get(this.baseurl+'/ajoutproduits/' + id +'/',
     {headers : this.httpHeaders});
   }
 
